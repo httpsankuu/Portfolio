@@ -1,3 +1,6 @@
+import { motion } from "framer-motion";
+import { useReducedMotion } from "../hooks/useReducedMotion";
+
 type Project = {
   label: string;
   title: string;
@@ -47,12 +50,30 @@ const projects: Project[] = [
   },
 ];
 
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.15 } },
+};
+
+const cardVariant = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+};
+
 export default function Projects() {
+  const reduced = useReducedMotion();
+
   return (
     <section id="projects" className="py-28 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
           <p className="font-mono text-sm text-primary tracking-wider uppercase mb-3">
             🛠️ What I've Built
           </p>
@@ -63,44 +84,57 @@ export default function Projects() {
             End-to-end ML systems, deployed apps, and data deep-dives — the
             work I'm most proud of.
           </p>
-        </div>
+        </motion.div>
 
         {/* Project grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-7"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-60px" }}
+        >
           {projects.map((project) => (
-            <div
+            <motion.div
               key={project.title}
-              className="group relative bg-white rounded-2xl border border-border overflow-hidden 
-                         transition-all duration-300 
-                         hover:shadow-2xl hover:shadow-primary/10 
-                         hover:-translate-y-2 hover:border-primary/20"
+              variants={cardVariant}
+              whileHover={
+                reduced
+                  ? undefined
+                  : {
+                      y: -6,
+                      scale: 1.02,
+                      transition: { duration: 0.25, ease: "easeOut" },
+                    }
+              }
+              className="group relative bg-white rounded-2xl border border-border overflow-hidden"
             >
+              {/* Hover glow border */}
+              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"
+                style={{
+                  background: "linear-gradient(135deg, rgba(108,99,255,0.15), rgba(255,107,107,0.1))",
+                  mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                  maskComposite: "exclude",
+                  WebkitMaskComposite: "xor",
+                  padding: "1px",
+                }}
+              />
+
               {/* Gradient banner */}
-              <div
-                className={`relative h-44 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
-              >
-                {/* Background pattern */}
+              <div className={`relative h-44 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}>
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute top-4 left-4 w-20 h-20 border-2 border-white rounded-full" />
                   <div className="absolute bottom-4 right-6 w-14 h-14 border-2 border-white rounded-lg rotate-12" />
                   <div className="absolute top-8 right-12 w-8 h-8 border-2 border-white rounded-full" />
                 </div>
-
-                {/* Icon */}
                 <span className="text-6xl drop-shadow-lg group-hover:scale-110 transition-transform duration-300">
                   {project.icon}
                 </span>
-
-                {/* Metric badge */}
                 {project.metric && (
-                  <div
-                    className={`absolute top-4 right-4 ${project.metric.color} text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg`}
-                  >
+                  <div className={`absolute top-4 right-4 ${project.metric.color} text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg`}>
                     {project.metric.value}
                   </div>
                 )}
-
-                {/* Project type label */}
                 <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-[11px] font-bold text-text px-3 py-1.5 rounded-full tracking-wide uppercase shadow-sm">
                   {project.label}
                 </div>
@@ -108,50 +142,30 @@ export default function Projects() {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-lg font-bold text-text mb-2 group-hover:text-primary transition-colors">
+                <h3 className="text-lg font-bold text-text mb-2 group-hover:text-primary transition-colors duration-200">
                   {project.title}
                 </h3>
-
                 <p className="text-sm text-text-muted leading-relaxed mb-5 line-clamp-3">
                   {project.description}
                 </p>
-
-                {/* Tech tags */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.tags.map((tag) => (
-                    <span
-                      key={tag.name}
-                      className={`px-2.5 py-1 text-[11px] font-semibold rounded-full ${tag.color}`}
-                    >
+                    <span key={tag.name} className={`px-2.5 py-1 text-[11px] font-semibold rounded-full ${tag.color}`}>
                       {tag.name}
                     </span>
                   ))}
                 </div>
-
-                {/* Link buttons */}
                 <div className="flex flex-wrap gap-3">
                   {project.liveUrl && (
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-full 
-                                 hover:bg-primary-light transition-all duration-300 shadow-lg shadow-primary/20
-                                 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-light transition-colors duration-200 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
                     >
                       Live Demo
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                     </a>
                   )}
@@ -159,30 +173,23 @@ export default function Projects() {
                     href={project.link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 text-primary text-sm font-semibold rounded-full 
-                               hover:bg-primary hover:text-white transition-all duration-300
-                               group/btn"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 text-primary text-sm font-semibold rounded-full hover:bg-primary hover:text-white transition-all duration-200 group/btn"
                   >
                     {project.link.text}
                     <svg
-                      className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform"
+                      className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

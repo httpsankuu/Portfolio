@@ -1,3 +1,6 @@
+import { motion } from "framer-motion";
+import { useReducedMotion } from "../hooks/useReducedMotion";
+
 const socialLinks = [
   {
     name: "Email",
@@ -51,47 +54,74 @@ const socialLinks = [
   },
 ];
 
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06 } },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
+};
+
 export default function Contact() {
+  const reduced = useReducedMotion();
+
   return (
     <section id="contact" className="py-28 px-6">
       <div className="max-w-3xl mx-auto text-center">
-        {/* Header */}
-        <p className="font-mono text-sm text-primary tracking-wider uppercase mb-3">
-          🤝 Let's Work Together
-        </p>
-        <h2 className="text-3xl md:text-4xl font-bold text-text mb-4">
-          Let's Connect
-        </h2>
-        <p className="text-lg text-text-muted mb-4 max-w-xl mx-auto leading-relaxed">
-          I'm actively looking for ML internships, research collaborations, and
-          open-source projects.
-        </p>
-        <p className="text-sm text-text-muted mb-10">
-          Have an idea or opportunity? I'd love to hear from you.
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="font-mono text-sm text-primary tracking-wider uppercase mb-3">
+            🤝 Let's Work Together
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-text mb-4">
+            Let's Connect
+          </h2>
+          <p className="text-lg text-text-muted mb-4 max-w-xl mx-auto leading-relaxed">
+            I'm actively looking for ML internships, research collaborations, and
+            open-source projects.
+          </p>
+          <p className="text-sm text-text-muted mb-10">
+            Have an idea or opportunity? I'd love to hear from you.
+          </p>
+        </motion.div>
 
-        {/* Icon row */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <motion.div
+          className="flex flex-wrap justify-center gap-4 mb-12"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
           {socialLinks.map((link) => (
-            <a
+            <motion.a
               key={link.name}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group flex items-center gap-2.5 px-5 py-3 bg-white rounded-xl border border-border 
-                          text-text-muted font-medium text-sm
-                          transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/5
-                          ${link.color}`}
+              variants={item}
+              whileHover={reduced ? undefined : { y: -4, transition: { duration: 0.2 } }}
+              className={`group flex items-center gap-2.5 px-5 py-3 bg-white rounded-xl border border-border text-text-muted font-medium text-sm transition-colors duration-200 hover:shadow-lg hover:shadow-black/5 ${link.color}`}
               aria-label={link.name}
             >
               {link.icon}
               <span>{link.name}</span>
-            </a>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
 
-        {/* CTA pill */}
-        <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 rounded-full border border-primary/20">
+        <motion.div
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 rounded-full border border-primary/20"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -99,7 +129,7 @@ export default function Contact() {
           <span className="text-sm font-medium text-primary">
             Open to new opportunities — let's chat!
           </span>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

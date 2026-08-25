@@ -1,17 +1,33 @@
-import { useScrollReveal } from "../hooks/useScrollReveal";
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
+import { useReducedMotion } from "../hooks/useReducedMotion";
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
-  id?: string;
+  delay?: number;
 }
 
-export default function SectionReveal({ children, className = "", id }: Props) {
-  const ref = useScrollReveal(0.1);
+export default function SectionReveal({ children, className = "", delay = 0 }: Props) {
+  const reduced = useReducedMotion();
+
+  if (reduced) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
-    <div ref={ref} id={id} className={`scroll-reveal ${className}`}>
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{
+        duration: 0.7,
+        delay,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
