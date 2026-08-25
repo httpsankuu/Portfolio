@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 
 const GITHUB_USERNAME = "httpsankuu";
 
-const statsUrl = `https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=default&hide_border=true&bg_color=transparent`;
-const langsUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&hide_border=true&bg_color=transparent&title_color=6C63FF&text_color=2D3436`;
+const statsUrl = `https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=white&hide_border=true`;
+const langsUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&hide_border=true&title_color=6C63FF&text_color=2D3436`;
 
 export default function GitHubStats() {
   return (
@@ -37,14 +37,16 @@ export default function GitHubStats() {
             <img
               src={statsUrl}
               alt={`${GITHUB_USERNAME}'s GitHub stats`}
+              width={495}
+              height={195}
               className="w-full max-w-md"
-              loading="lazy"
             />
             <img
               src={langsUrl}
               alt={`${GITHUB_USERNAME}'s top languages`}
+              width={300}
+              height={155}
               className="w-full max-w-xs"
-              loading="lazy"
             />
           </div>
         </motion.div>

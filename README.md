@@ -85,8 +85,8 @@ Uploads PDF resumes, extracts skills, matches against job descriptions, and gene
 
 <div align="center">
 
-<img src="https://github-readme-stats.vercel.app/api?username=httpsankuu&show_icons=true&theme=default&hide_border=true&bg_color=transparent" width="400"/>
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=httpsankuu&layout=compact&hide_border=true&bg_color=transparent&title_color=6C63FF" width="180"/>
+<img src="https://github-readme-stats.vercel.app/api?username=httpsankuu&show_icons=true&theme=white&hide_border=true&bg_color=ffffff&text_color=2D3436&icon_color=6C63FF" width="400"/>
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=httpsankuu&layout=compact&hide_border=true&bg_color=ffffff&title_color=6C63FF&text_color=2D3436" width="180"/>
 
 </div>
 
