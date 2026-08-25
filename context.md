@@ -95,12 +95,14 @@ portfolio/
   - Pill chips: C++ ⚡, DSA 🧩, Competitive Programming 🏆
 
 ### Step 6 — GitHub Stats Section
-- Embedded two `github-readme-stats.vercel.app` images:
-  - Main stats: `?username=httpsankuu&show_icons=true&theme=default&hide_border=true&bg_color=transparent`
-  - Top langs: `?username=httpsankuu&layout=compact&hide_border=true&bg_color=transparent&title_color=6C63FF`
-- Desktop: side-by-side | Mobile: stacked
-- Light card container with subtle border
+- Self-contained component fetching from `api.github.com` (replaced broken `github-readme-stats.vercel.app`)
+- **Profile summary card**: avatar, username, repo count
+- **Stat boxes**: Repos, Stars, Followers (live from GitHub API)
+- **Language breakdown**: colored bar + percentage list (calculated from repos)
+- **Top repos grid**: 6 most-starred repos with language, stars, description
+- Loading spinner while fetching
 - GitHub profile link at bottom with external link icon
+- Stats update automatically when GitHub profile changes
 
 ### Step 7 — Education Section
 - Single card layout with:
@@ -233,6 +235,14 @@ portfolio/
 - Removed old `@keyframes polaroid-sway` / `polaroid-sway-alt` (now Framer Motion)
 - Added `prefers-reduced-motion: reduce` media query
 - Removed cursor-hiding CSS (CustomCursor was removed)
+
+### Step 21 — GitHub Stats Fix & README
+- Replaced broken `github-readme-stats.vercel.app` (Vercel ended sponsorship) with self-contained GitHub API fetch
+- GitHubStats.tsx now fetches from `api.github.com`: profile, repos, languages
+- Shows profile card (avatar, repos, stars, followers), language breakdown bar, top repos grid
+- Stats update live whenever GitHub profile changes
+- README.md modernized with shields.io badges, project tables, tech stack, social links
+- README GitHub stats section uses shields.io badges (repos, followers, stars) instead of broken images
 
 ---
 

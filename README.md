@@ -85,13 +85,13 @@ Uploads PDF resumes, extracts skills, matches against job descriptions, and gene
 
 <div align="center">
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=httpsankuu&show_icons=true&theme=white&hide_border=true)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=httpsankuu&layout=compact&hide_border=true&title_color=6C63FF)
+![Repos](https://img.shields.io/badge/Repos-public-6C63FF?style=for-the-badge&logo=github&logoColor=white)
+![Followers](https://img.shields.io/github/followers/httpsankuu?color=FF6B6B&style=for-the-badge&logo=github&logoColor=white)
+![Stars](https://img.shields.io/github/stars/httpsankuu?color=FFB347&style=for-the-badge&logo=github&logoColor=white)
 
 </div>
 
-> 💡 If stats don't load, visit [github.com/httpsankuu](https://github.com/httpsankuu) directly.
+> 💡 Visit [github.com/httpsankuu](https://github.com/httpsankuu) for full profile.
 
 ---
 
