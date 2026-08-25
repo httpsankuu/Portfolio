@@ -55,8 +55,8 @@ const headlineWords = ["Building", "AI", "that", "solves", "real", "problems,", 
 
 export default function Hero() {
   const reduced = useReducedMotion();
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const mouseX = useMotionValue<number>(0);
+  const mouseY = useMotionValue<number>(0);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -241,8 +241,8 @@ function PolaroidCard({
 }: {
   p: (typeof polaroids)[number];
   index: number;
-  mouseX: ReturnType<typeof useMotionValue>;
-  mouseY: ReturnType<typeof useMotionValue>;
+  mouseX: ReturnType<typeof useMotionValue<number>>;
+  mouseY: ReturnType<typeof useMotionValue<number>>;
   reduced: boolean;
   loaded: boolean;
 }) {
@@ -271,7 +271,7 @@ function PolaroidCard({
         delay: 0.8 + index * 0.1,
         ease: [0.34, 1.56, 0.64, 1], // bounce easing
       }}
-      style={!reduced ? { x: parallaxX, y: parallaxY } : undefined}
+      style={!reduced ? { x: parallaxX as any, y: parallaxY as any } : undefined}
       whileHover={
         reduced
           ? undefined
