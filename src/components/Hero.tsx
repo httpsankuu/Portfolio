@@ -58,7 +58,7 @@ const polaroids = [
   },
 ];
 
-const headlineWords = ["Building", "AI", "that", "solves", "real", "problems,", "not", "just", "demos."];
+const headlineWords = ["Building", "AI", "that", "solves", "real", "problems."];
 
 export default function Hero() {
   const reduced = useReducedMotion();
@@ -92,14 +92,14 @@ export default function Hero() {
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-24 pb-16 flex flex-col md:flex-row items-center gap-12">
         {/* Left — text content */}
         <div className="flex-1 text-center md:text-left">
-          <motion.p
-            className="font-mono text-sm text-primary tracking-wider uppercase mb-3"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            👋 Hi, I'm
-          </motion.p>
+        <motion.p
+          className="font-mono text-sm text-primary tracking-wider uppercase mb-3"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          Hi, I'm
+        </motion.p>
 
           <h1 className="text-5xl md:text-7xl font-bold text-text tracking-tight leading-[1.1] mb-4">
             <motion.span
@@ -121,7 +121,7 @@ export default function Hero() {
           </h1>
 
           {/* Staggered word reveal for headline */}
-          <h2 className="text-xl md:text-2xl font-semibold text-text mb-4 flex flex-wrap gap-x-[0.35em] justify-center md:justify-start">
+          <h2 className="text-xl md:text-2xl font-semibold text-text mb-4 flex flex-wrap gap-x-[0.35em] justify-center md:justify-start" aria-label="Building AI that solves real problems, not just demos.">
             {headlineWords.map((word, i) => (
               <motion.span
                 key={i}
@@ -146,7 +146,7 @@ export default function Hero() {
           >
             Machine Learning Engineer passionate about building things that are fast,
             <br className="hidden md:block" />
-            clean, and useful. Currently grinding DSA &amp; Competitive Programming while shipping ML and web projects.
+            clean, and useful. Currently learning DSA &amp; Competitive Programming while shipping ML and web projects.
           </motion.p>
 
           {/* CTA buttons */}
@@ -207,7 +207,9 @@ export default function Hero() {
                   {p.photo ? (
                     <img src={p.photo} alt={p.label} className="w-full h-full object-cover" loading="lazy" />
                   ) : (
-                    p.label.split(" ")[0]
+                    <span role="img" aria-label={p.label}>
+                      {p.label.split(" ")[0]}
+                    </span>
                   )}
                 </div>
                 <p className="text-center text-[10px] font-medium text-text-muted font-[cursive] mt-1 leading-tight">
@@ -344,7 +346,9 @@ function PolaroidCard({
           {p.photo ? (
             <img src={p.photo} alt={p.label} className="w-full h-full object-cover" loading="lazy" />
           ) : (
-            p.label.split(" ")[0]
+            <span role="img" aria-label={p.label}>
+              {p.label.split(" ")[0]}
+            </span>
           )}
         </div>
         {/* Caption */}

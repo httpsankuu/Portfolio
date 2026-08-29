@@ -1,10 +1,30 @@
 import { useState, useEffect } from "react";
 
+function throttle<T extends (...args: unknown[]) => void>(fn: T, ms: number): T {
+  let last = 0;
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  return ((...args: unknown[]) => {
+    const now = Date.now();
+    const remaining = ms - (now - last);
+    if (remaining <= 0) {
+      if (timer) { clearTimeout(timer); timer = null; }
+      last = now;
+      fn(...args);
+    } else if (!timer) {
+      timer = setTimeout(() => {
+        last = Date.now();
+        timer = null;
+        fn(...args);
+      }, remaining);
+    }
+  }) as T;
+}
+
 export function useScrollSpy(sectionIds: string[], offset = 120): string {
   const [active, setActive] = useState("");
 
   useEffect(() => {
-    const onScroll = () => {
+    const onScroll = throttle(() => {
       const scrollY = window.scrollY;
       const viewportH = window.innerHeight;
 
@@ -16,8 +36,9 @@ export function useScrollSpy(sectionIds: string[], offset = 120): string {
         const el = document.getElementById(id);
         if (!el) continue;
 
-        const top = el.getBoundingClientRect().top;
-        const bottom = el.getBoundingClientRect().bottom;
+        const rect = el.getBoundingClientRect();
+        const top = rect.top;
+        const bottom = rect.bottom;
 
         // Section must be at least partially visible
         if (bottom < 0 || top > viewportH) continue;
@@ -55,7 +76,7 @@ export function useScrollSpy(sectionIds: string[], offset = 120): string {
       }
 
       setActive(bestId);
-    };
+    }, 50);
 
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();

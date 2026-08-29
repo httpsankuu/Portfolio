@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScrollSpy } from "../hooks/useScrollSpy";
 
@@ -19,12 +19,55 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const activeSection = useScrollSpy(sectionIds, 160);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLUListElement>(null);
+
+  const closeMobile = useCallback(() => setMobileOpen(false), []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Focus trap for mobile menu
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const menu = menuRef.current;
+    if (!menu) return;
+
+    // Focus the first link on open
+    const firstLink = menu.querySelector("a") as HTMLElement | null;
+    firstLink?.focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeMobile();
+        hamburgerRef.current?.focus();
+        return;
+      }
+
+      if (e.key !== "Tab") return;
+
+      const links = Array.from(menu.querySelectorAll("a")) as HTMLElement[];
+      if (links.length === 0) return;
+
+      const first = links[0];
+      const last = links[links.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen, closeMobile]);
 
   return (
     <motion.nav
@@ -79,9 +122,12 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
+            ref={hamburgerRef}
             className="md:hidden p-2 rounded-lg hover:bg-primary/10 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
             <svg
               className="w-6 h-6 text-text"
@@ -119,7 +165,7 @@ export default function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            <ul className="flex flex-col p-4 gap-1">
+            <ul ref={menuRef} id="mobile-menu" className="flex flex-col p-4 gap-1" role="menu">
               {navLinks.map((link, i) => {
                 const isActive = activeSection === link.id;
                 return (
@@ -133,7 +179,7 @@ export default function Navbar() {
                       href={link.href}
                       onClick={(e) => {
                         e.preventDefault();
-                        setMobileOpen(false);
+                        closeMobile();
                         // Small delay so menu exit animation doesn't block scroll
                         setTimeout(() => {
                           const target = document.getElementById(link.id);
