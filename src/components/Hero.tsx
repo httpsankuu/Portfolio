@@ -3,14 +3,16 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import MagneticButton from "./MagneticButton";
 
+// Layout: 2 at top (left / right), 2 in middle (left / right), 1 at bottom-center
+// Each card is ~148px wide × ~192px tall inside a ~530px × 560px container
 const polaroids = [
   {
     id: 1,
     color: "from-rose-200 to-orange-100",
     label: "📸 Lab work",
     photo: "/photo-desk.png",
-    rotation: -6,
-    position: "top-8 right-[8%] md:top-16 md:right-[4%]",
+    rotation: -9,
+    position: "top-[2%] left-[2%]",          // top-left
     floatDuration: 6,
     floatAmount: 8,
   },
@@ -19,40 +21,40 @@ const polaroids = [
     color: "from-sky-200 to-indigo-100",
     label: "🎓 Graduation",
     photo: null,
-    rotation: 3,
-    position: "top-24 right-[22%] md:top-8 md:right-[18%]",
+    rotation: 7,
+    position: "top-[4%] right-[4%]",          // top-right
     floatDuration: 7,
     floatAmount: 6,
   },
   {
     id: 3,
+    color: "from-purple-200 to-pink-100",
+    label: "☕ Coffee & code",
+    photo: "/photo-coffee.png",
+    rotation: -5,
+    position: "top-[40%] left-[4%]",          // middle-left
+    floatDuration: 7.5,
+    floatAmount: 6,
+  },
+  {
+    id: 4,
     color: "from-amber-200 to-yellow-100",
     label: "🏆 Hackathon win",
     photo: null,
-    rotation: -2,
-    position: "bottom-32 right-[6%] md:bottom-20 md:right-[2%]",
+    rotation: 6,
+    position: "top-[38%] right-[3%]",         // middle-right
     floatDuration: 5.5,
     floatAmount: 7,
   },
   {
-    id: 4,
+    id: 5,
     color: "from-emerald-200 to-teal-100",
     label: "🤖 ML project",
     photo: "/photo-project.png",
-    rotation: 6,
-    position: "bottom-12 right-[24%] md:bottom-12 md:right-[16%]",
+    rotation: -4,
+    position: "bottom-[2%] left-[28%]",       // bottom-center
     floatDuration: 6.5,
     floatAmount: 5,
-  },
-  {
-    id: 5,
-    color: "from-purple-200 to-pink-100",
-    label: "☕ Coffee & code",
-    photo: null,
-    rotation: -3,
-    position: "top-[45%] right-[0%] md:top-[40%] md:-right-[2%]",
-    floatDuration: 7.5,
-    floatAmount: 6,
   },
 ];
 
@@ -191,11 +193,11 @@ export default function Hero() {
         </div>
 
         {/* Mobile — horizontal scrollable polaroid strip below text */}
-        <div className="flex md:hidden gap-4 overflow-x-auto pb-4 w-full px-1 scrollbar-hide">
+        <div className="flex md:hidden gap-5 overflow-x-auto pb-4 w-full px-2 scrollbar-hide">
           {polaroids.map((p) => (
             <div
               key={p.id}
-              className="shrink-0"
+              className="relative shrink-0"
               style={{ transform: `rotate(${p.rotation}deg)` }}
             >
               <div className="bg-white p-2 pb-7 rounded-sm shadow-md shadow-black/10 w-28">
@@ -219,7 +221,7 @@ export default function Hero() {
         </div>
 
         {/* Desktop — floating polaroid collage on the right */}
-        <div className="hidden md:block relative flex-1 w-full h-[500px] shrink-0">
+        <div className="hidden md:block relative flex-1 w-full h-[560px] shrink-0">
           {polaroids.map((p, i) => (
             <PolaroidCard
               key={p.id}
