@@ -131,7 +131,17 @@ export default function Navbar() {
                   >
                     <a
                       href={link.href}
-                      onClick={() => setMobileOpen(false)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setMobileOpen(false);
+                        // Small delay so menu exit animation doesn't block scroll
+                        setTimeout(() => {
+                          const target = document.getElementById(link.id);
+                          if (target) {
+                            target.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }
+                        }, 50);
+                      }}
                       className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                         isActive
                           ? "text-primary bg-primary/10"
