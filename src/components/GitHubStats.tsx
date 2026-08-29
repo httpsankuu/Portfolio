@@ -140,13 +140,12 @@ export default function GitHubStats() {
           ) : (
             <div className="flex flex-col md:flex-row items-start justify-center gap-8">
               {/* Profile summary card */}
-              <div className="flex-1 w-full">
-                <div className="bg-bg rounded-xl border border-border p-5">
+              <div className="flex-1 w-full">                    <div className="bg-bg rounded-xl border border-border p-5">
                   <div className="flex items-center gap-4 mb-4">
                     <img
                       src={`https://github.com/${GITHUB_USERNAME}.png?size=80`}
                       alt={GITHUB_USERNAME}
-                      className="w-14 h-14 rounded-full border-2 border-primary/20"
+                      className="w-14 h-14 rounded-full border-2 border-primary/20 bg-white"
                       loading="lazy"
                     />
                     <div className="text-left">
@@ -273,8 +272,7 @@ export default function GitHubStats() {
 }
 
 function StatBox({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="bg-white rounded-lg border border-border p-3 text-center">
+  return (              <div className="bg-white rounded-lg border border-border p-3 text-center">
       <p className="text-xl font-bold text-primary">{value}</p>
       <p className="text-[11px] text-text-muted font-medium">{label}</p>
     </div>

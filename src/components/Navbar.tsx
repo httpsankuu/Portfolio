@@ -92,6 +92,8 @@ export default function Navbar() {
             &lt;Ankit /&gt;
           </a>
 
+
+
           {/* Desktop links */}
           <ul className="hidden md:flex gap-1">
             {navLinks.map((link) => {

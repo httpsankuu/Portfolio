@@ -58,6 +58,8 @@
   --color-border: #E8E8E8;
 }
 
+
+
 html {
   scroll-behavior: smooth;
 }
@@ -69,6 +71,7 @@ body {
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 ::selection {
