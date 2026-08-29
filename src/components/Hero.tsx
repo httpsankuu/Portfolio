@@ -205,7 +205,7 @@ export default function Hero() {
                   className={`w-24 h-24 rounded-sm bg-gradient-to-br ${p.color} overflow-hidden flex items-center justify-center text-2xl`}
                 >
                   {p.photo ? (
-                    <img src={p.photo} alt={p.label} className="w-full h-full object-cover" />
+                    <img src={p.photo} alt={p.label} className="w-full h-full object-cover" loading="lazy" />
                   ) : (
                     p.label.split(" ")[0]
                   )}
@@ -342,7 +342,7 @@ function PolaroidCard({
           className={`w-28 h-28 md:w-36 md:h-36 rounded-sm bg-gradient-to-br ${p.color} overflow-hidden flex items-center justify-center text-3xl md:text-4xl`}
         >
           {p.photo ? (
-            <img src={p.photo} alt={p.label} className="w-full h-full object-cover" />
+            <img src={p.photo} alt={p.label} className="w-full h-full object-cover" loading="lazy" />
           ) : (
             p.label.split(" ")[0]
           )}

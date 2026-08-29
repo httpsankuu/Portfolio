@@ -127,6 +127,7 @@ export default function Certifications() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full aspect-[4/3] bg-white/80 backdrop-blur-sm rounded-xl border border-white/60 mb-4 overflow-hidden block relative group/preview"
+                aria-label={`Preview ${cert.title}`}
               >
                 {cert.previewType === "image" ? (
                   <img

@@ -24,12 +24,24 @@ export default function MagneticButton({ children, className = "", href, strengt
 
   const onLeave = () => setOffset({ x: 0, y: 0 });
 
-  const Wrapper = href ? motion.a : motion.button;
+  if (href) {
+    return (
+      <motion.a
+        ref={ref}
+        href={href}
+        className={className}
+        onMouseMove={onMove}
+        onMouseLeave={onLeave}
+        animate={{ x: offset.x, y: offset.y }}
+        transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+      >
+        {children}
+      </motion.a>
+    );
+  }
 
   return (
-    <Wrapper
-      ref={ref as never}
-      href={href}
+    <motion.button
       className={className}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
@@ -37,6 +49,6 @@ export default function MagneticButton({ children, className = "", href, strengt
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
     >
       {children}
-    </Wrapper>
+    </motion.button>
   );
 }

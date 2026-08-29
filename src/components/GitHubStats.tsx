@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-
-const GITHUB_USERNAME = "httpsankuu";
+import { GITHUB_USERNAME } from "../config";
 
 interface GitHubProfile {
   public_repos: number;
@@ -61,8 +60,16 @@ export default function GitHubStats() {
     const fetchStats = async () => {
       try {
         const [profileRes, reposRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
-          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`),
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
+            headers: import.meta.env.VITE_GITHUB_TOKEN
+              ? { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
+              : {},
+          }),
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`, {
+            headers: import.meta.env.VITE_GITHUB_TOKEN
+              ? { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
+              : {},
+          }),
         ]);
 
         const profileData = await profileRes.json();
@@ -140,6 +147,7 @@ export default function GitHubStats() {
                       src={`https://github.com/${GITHUB_USERNAME}.png?size=80`}
                       alt={GITHUB_USERNAME}
                       className="w-14 h-14 rounded-full border-2 border-primary/20"
+                      loading="lazy"
                     />
                     <div className="text-left">
                       <h3 className="font-bold text-text text-lg">{GITHUB_USERNAME}</h3>
