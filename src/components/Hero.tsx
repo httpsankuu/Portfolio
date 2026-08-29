@@ -185,8 +185,8 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right — polaroid collage */}
-        <div className="relative flex-1 w-full h-[400px] md:h-[500px] shrink-0">
+        {/* Right — polaroid collage (hidden on mobile to avoid overlapping text) */}
+        <div className="hidden md:block relative flex-1 w-full h-[500px] shrink-0">
           {polaroids.map((p, i) => (
             <PolaroidCard
               key={p.id}
