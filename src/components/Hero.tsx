@@ -8,6 +8,7 @@ const polaroids = [
     id: 1,
     color: "from-rose-200 to-orange-100",
     label: "📸 Lab work",
+    photo: "/photo-desk.png",
     rotation: -6,
     position: "top-8 right-[8%] md:top-16 md:right-[4%]",
     floatDuration: 6,
@@ -17,6 +18,7 @@ const polaroids = [
     id: 2,
     color: "from-sky-200 to-indigo-100",
     label: "🎓 Graduation",
+    photo: null,
     rotation: 3,
     position: "top-24 right-[22%] md:top-8 md:right-[18%]",
     floatDuration: 7,
@@ -26,6 +28,7 @@ const polaroids = [
     id: 3,
     color: "from-amber-200 to-yellow-100",
     label: "🏆 Hackathon win",
+    photo: null,
     rotation: -2,
     position: "bottom-32 right-[6%] md:bottom-20 md:right-[2%]",
     floatDuration: 5.5,
@@ -35,6 +38,7 @@ const polaroids = [
     id: 4,
     color: "from-emerald-200 to-teal-100",
     label: "🤖 ML project",
+    photo: "/photo-project.png",
     rotation: 6,
     position: "bottom-12 right-[24%] md:bottom-12 md:right-[16%]",
     floatDuration: 6.5,
@@ -44,6 +48,7 @@ const polaroids = [
     id: 5,
     color: "from-purple-200 to-pink-100",
     label: "☕ Coffee & code",
+    photo: null,
     rotation: -3,
     position: "top-[45%] right-[0%] md:top-[40%] md:-right-[2%]",
     floatDuration: 7.5,
@@ -185,7 +190,35 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right — polaroid collage (hidden on mobile to avoid overlapping text) */}
+        {/* Mobile — horizontal scrollable polaroid strip below text */}
+        <div className="flex md:hidden gap-4 overflow-x-auto pb-4 w-full px-1 scrollbar-hide">
+          {polaroids.map((p) => (
+            <div
+              key={p.id}
+              className="shrink-0"
+              style={{ transform: `rotate(${p.rotation}deg)` }}
+            >
+              <div className="bg-white p-2 pb-7 rounded-sm shadow-md shadow-black/10 w-28">
+                <div
+                  className={`w-24 h-24 rounded-sm bg-gradient-to-br ${p.color} overflow-hidden flex items-center justify-center text-2xl`}
+                >
+                  {p.photo ? (
+                    <img src={p.photo} alt={p.label} className="w-full h-full object-cover" />
+                  ) : (
+                    p.label.split(" ")[0]
+                  )}
+                </div>
+                <p className="text-center text-[10px] font-medium text-text-muted font-[cursive] mt-1 leading-tight">
+                  {p.label.split(" ").slice(1).join(" ")}
+                </p>
+                {/* Tape */}
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-3 bg-white/60 backdrop-blur-sm rounded-sm border border-white/40 shadow-sm rotate-1" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop — floating polaroid collage on the right */}
         <div className="hidden md:block relative flex-1 w-full h-[500px] shrink-0">
           {polaroids.map((p, i) => (
             <PolaroidCard
@@ -302,11 +335,15 @@ function PolaroidCard({
               }
         }
       >
-        {/* Placeholder image area */}
+        {/* Image area — real photo or emoji placeholder */}
         <div
-          className={`w-28 h-28 md:w-36 md:h-36 rounded-sm bg-gradient-to-br ${p.color} flex items-center justify-center text-3xl md:text-4xl`}
+          className={`w-28 h-28 md:w-36 md:h-36 rounded-sm bg-gradient-to-br ${p.color} overflow-hidden flex items-center justify-center text-3xl md:text-4xl`}
         >
-          {p.label.split(" ")[0]}
+          {p.photo ? (
+            <img src={p.photo} alt={p.label} className="w-full h-full object-cover" />
+          ) : (
+            p.label.split(" ")[0]
+          )}
         </div>
         {/* Caption */}
         <p className="absolute bottom-2 left-0 right-0 text-center text-[11px] md:text-xs font-medium text-text-muted font-[cursive]">
