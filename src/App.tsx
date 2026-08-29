@@ -25,7 +25,7 @@ export default function App() {
       </a>
       <ScrollProgress />
       <Navbar />
-      <main role="main">
+      <main>
         <Hero />
         <SectionReveal>
           <About />

@@ -15,19 +15,49 @@ type Achievement = {
 
 const achievements: Achievement[] = [
   {
-    badge: "🚀 Coming Soon",
-    badgeColor: "bg-primary",
-    title: "Building My Portfolio",
-    organizer: "Ongoing",
+    badge: "🚀 Shipped",
+    badgeColor: "bg-orange-500",
+    title: "MrCompress.com",
+    organizer: "Live on Cloudflare Pages",
     description:
-      "Currently focused on sharpening my skills through DSA practice, competitive programming, and shipping real ML & web projects. More achievements coming soon!",
+      "A privacy-first image optimizer — 100% browser-based, no server uploads. Built with Astro 6, React 19, and i18n support.",
     tags: [
-      { name: "In Progress", color: "bg-violet-100 text-violet-700" },
-      { name: "DSA", color: "bg-blue-100 text-blue-700" },
-      { name: "Competitive Programming", color: "bg-emerald-100 text-emerald-700" },
+      { name: "Astro", color: "bg-orange-100 text-orange-700" },
+      { name: "React", color: "bg-sky-100 text-sky-700" },
+      { name: "Cloudflare", color: "bg-amber-100 text-amber-700" },
     ],
-    gradient: "from-primary/40 via-primary/30 to-accent/30",
-    icon: "🎯",
+    gradient: "from-orange-400 via-amber-400 to-yellow-400",
+    icon: "🗜️",
+  },
+  {
+    badge: "🤖 AI Project",
+    badgeColor: "bg-violet-500",
+    title: "resume-analyzer-ai",
+    organizer: "Live on Vercel",
+    description:
+      "AI-powered resume analyzer — parses PDFs, extracts skills, matches against job descriptions, and generates detailed reports.",
+    tags: [
+      { name: "FastAPI", color: "bg-teal-100 text-teal-700" },
+      { name: "spaCy", color: "bg-emerald-100 text-emerald-700" },
+      { name: "Next.js", color: "bg-gray-100 text-gray-700" },
+    ],
+    gradient: "from-violet-400 via-purple-400 to-indigo-400",
+    icon: "📄",
+  },
+  {
+    badge: "📜 Certified",
+    badgeColor: "bg-emerald-500",
+    title: "5 Professional Certifications",
+    organizer: "Coursera, Udemy, Infosys, NSDC",
+    description:
+      "Completed certifications in Python, C Programming, and Time Management from recognized platforms.",
+    tags: [
+      { name: "Python", color: "bg-yellow-100 text-yellow-700" },
+      { name: "C Programming", color: "bg-green-100 text-green-700" },
+      { name: "Time Management", color: "bg-amber-100 text-amber-700" },
+    ],
+    gradient: "from-emerald-400 via-teal-400 to-cyan-400",
+    icon: "🎓",
   },
 ];
 
@@ -60,9 +90,8 @@ export default function Achievements() {
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-text mb-4">
             Achievements
-          </h2>
-          <p className="text-lg text-text-muted max-w-2xl mx-auto">
-            Awards, hackathon wins, and competition milestones
+          </h2>            <p className="text-lg text-text-muted max-w-2xl mx-auto">
+            Shipped projects and verified milestones
           </p>
         </motion.div>
 
