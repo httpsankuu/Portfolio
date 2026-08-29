@@ -10,14 +10,25 @@
 [![LeetCode](https://img.shields.io/badge/🧩-LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=white)](https://leetcode.com/u/who_ankuu/)
 [![X](https://img.shields.io/badge/🐦-X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/who_ankith)
 
-<br/>
+**Building AI that solves real problems.**
 
-**Building AI that solves real problems, not just demos.**
-
-Passionate about building things that are fast, clean, and useful.
-Currently grinding DSA & Competitive Programming while shipping ML and web projects.
+Machine Learning Engineer passionate about shipping fast, clean, and useful products.
+Currently learning DSA & Competitive Programming while building ML and web projects.
 
 </div>
+
+---
+
+## 📑 Table of Contents
+
+- [🚀 Featured Projects](#-featured-projects)
+- [🏆 Achievements](#-achievements)
+- [📜 Certifications](#-certifications)
+- [⚔️ Tech Arsenal](#️-tech-arsenal)
+- [📊 GitHub Stats](#-github-stats)
+- [🎓 Education](#-education)
+- [🛠️ Built With](#️-built-with)
+- [📬 Let's Connect](#-lets-connect)
 
 ---
 
@@ -31,6 +42,7 @@ Currently grinding DSA & Competitive Programming while shipping ML and web proje
 > Lightning-fast, privacy-first image optimizer & converter
 
 100% browser-based processing — your images never leave your device.
+Built with Astro 6, React 19, Tailwind 4, and i18n support. Deployed on Cloudflare Pages.
 
 ![Astro](https://img.shields.io/badge/Astro-v6.4-FF5D01?style=flat&logo=astro&logoColor=white)
 ![React](https://img.shields.io/badge/React-v19-61DAFB?style=flat&logo=react&logoColor=black)
@@ -45,7 +57,8 @@ Currently grinding DSA & Competitive Programming while shipping ML and web proje
 ### 📄 resume-analyzer-ai
 > AI-powered resume analysis tool
 
-Uploads PDF resumes, extracts skills, matches against job descriptions, and generates detailed reports.
+Uploads PDF resumes, extracts skills, matches against job descriptions,
+and generates detailed reports. Built with FastAPI, spaCy, and Next.js.
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
@@ -60,22 +73,77 @@ Uploads PDF resumes, extracts skills, matches against job descriptions, and gene
 
 ---
 
+## 🏆 Achievements
+
+<table>
+<tr>
+<td>
+
+### 🗜️ Shipped MrCompress.com
+> Live on Cloudflare Pages
+
+A privacy-first image optimizer — 100% browser-based, no server uploads.
+Built with Astro 6, React 19, and i18n support.
+
+![Astro](https://img.shields.io/badge/Astro-FF5D01?style=flat&logo=astro&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
+![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=cloudflare&logoColor=white)
+
+</td>
+<td>
+
+### 📄 Built resume-analyzer-ai
+> Live on Vercel
+
+AI-powered resume analyzer — parses PDFs, extracts skills, matches
+against job descriptions, and generates detailed reports.
+
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+![spaCy](https://img.shields.io/badge/spaCy-09A3D5?style=flat&logo=spacy&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)
+
+</td>
+<td>
+
+### 📜 5 Professional Certifications
+> Coursera, Udemy, Infosys, NSDC
+
+Completed certifications in Python, C Programming,
+and Time Management from recognized platforms.
+
+![Coursera](https://img.shields.io/badge/Coursera-0056D2?style=flat&logo=coursera&logoColor=white)
+![Udemy](https://img.shields.io/badge/Udemy-A435F0?style=flat&logo=udemy&logoColor=white)
+
+</td>
+</tr>
+</table>
+
+---
+
+## 📜 Certifications
+
+| Certification | Issuer | Status |
+|--------------|--------|--------|
+| Crash Course on Python | Coursera | ✅ Verified |
+| Python Bootcamp | Udemy | ✅ Verified |
+| Infosys Certification | Infosys | ✅ Verified |
+| Effective Time Management | NSDC | ✅ Verified |
+| C Programming | Certificate | ✅ Verified |
+
+---
+
 ## ⚔️ Tech Arsenal
 
-```
- Languages        ML/DL Frameworks      Data & Analysis       MLOps & Infra
-┌──────────┐     ┌──────────┐         ┌──────────┐          ┌──────────┐
-│ Python   │     │ Flask    │         │ Wrangling│          │ Git      │
-│ HTML     │     │ Streamlit│         │ EDA      │          │ Vite     │
-│ CSS      │     │          │         │ Feature  │          │ Tailwind │
-│ JS       │     │          │         │ Eng.     │          │ Astro    │
-│ C        │     │          │         │          │          │          │
-└──────────┘     └──────────┘         └──────────┘          └──────────┘
-```
+| Category | Skills |
+|----------|--------|
+| **Languages** | Python, HTML, CSS, JavaScript, C |
+| **ML/DL Frameworks** | Flask, Streamlit |
+| **Data & Analysis** | Data Wrangling, EDA, Feature Engineering |
+| **MLOps & Infra** | Git & GitHub, Vite, Astro, Tailwind CSS |
 
 <div align="center">
 
-**Currently Learning:** `C++` `DSA` `Competitive Programming`
+**Currently Learning:** `C++` · `DSA` · `Competitive Programming`
 
 </div>
 
@@ -108,7 +176,7 @@ Lovely Professional University
 </td>
 <td>
 
-🌱 Machine Learning · Deep Learning · Data Structures · Algorithms · AI · Python
+Machine Learning · Deep Learning · Data Structures · Algorithms · AI · Python
 
 </td>
 </tr>
@@ -134,7 +202,6 @@ Lovely Professional University
 
 <div align="center">
 
-[![Email](https://img.shields.io/badge/📧-Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ankitkumar143563@gmail.com)
 [![LinkedIn](https://img.shields.io/badge/💼-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ankit-kumar-singh03/)
 [![GitHub](https://img.shields.io/badge/⚡-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/httpsankuu)
 [![LeetCode](https://img.shields.io/badge/🧩-LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=white)](https://leetcode.com/u/who_ankuu/)
