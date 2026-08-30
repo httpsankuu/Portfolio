@@ -22,9 +22,9 @@ const achievements: Achievement[] = [
     description:
       "A privacy-first image optimizer — 100% browser-based, no server uploads. Built with Astro 6, React 19, and i18n support.",
     tags: [
-      { name: "Astro", color: "bg-orange-100 text-orange-700" },
-      { name: "React", color: "bg-sky-100 text-sky-700" },
-      { name: "Cloudflare", color: "bg-amber-100 text-amber-700" },
+      { name: "Astro", color: "bg-orange-500/15 text-orange-400 border border-orange-500/20" },
+      { name: "React", color: "bg-sky-500/15 text-sky-400 border border-sky-500/20" },
+      { name: "Cloudflare", color: "bg-amber-500/15 text-amber-400 border border-amber-500/20" },
     ],
     gradient: "from-orange-400 via-amber-400 to-yellow-400",
     icon: "🗜️",
@@ -37,9 +37,9 @@ const achievements: Achievement[] = [
     description:
       "AI-powered resume analyzer — parses PDFs, extracts skills, matches against job descriptions, and generates detailed reports.",
     tags: [
-      { name: "FastAPI", color: "bg-teal-100 text-teal-700" },
-      { name: "spaCy", color: "bg-emerald-100 text-emerald-700" },
-      { name: "Next.js", color: "bg-gray-100 text-gray-700" },
+      { name: "FastAPI", color: "bg-teal-500/15 text-teal-400 border border-teal-500/20" },
+      { name: "spaCy", color: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20" },
+      { name: "Next.js", color: "bg-white/10 text-text-muted border border-border" },
     ],
     gradient: "from-violet-400 via-purple-400 to-indigo-400",
     icon: "📄",
@@ -52,9 +52,9 @@ const achievements: Achievement[] = [
     description:
       "Completed certifications in Python, C Programming, and Time Management from recognized platforms.",
     tags: [
-      { name: "Python", color: "bg-yellow-100 text-yellow-700" },
-      { name: "C Programming", color: "bg-green-100 text-green-700" },
-      { name: "Time Management", color: "bg-amber-100 text-amber-700" },
+      { name: "Python", color: "bg-yellow-500/15 text-yellow-400 border border-yellow-500/20" },
+      { name: "C Programming", color: "bg-green-500/15 text-green-400 border border-green-500/20" },
+      { name: "Time Management", color: "bg-amber-500/15 text-amber-400 border border-amber-500/20" },
     ],
     gradient: "from-emerald-400 via-teal-400 to-cyan-400",
     icon: "🎓",
@@ -116,7 +116,7 @@ export default function Achievements() {
                       transition: { duration: 0.25, ease: "easeOut" },
                     }
               }
-              className="group relative bg-white rounded-2xl border border-border overflow-hidden"
+              className="group relative bg-bg-card rounded-2xl border border-border overflow-hidden"
             >
               {/* Gradient banner */}
               <div className={`relative h-40 bg-gradient-to-br ${ach.gradient} flex items-center justify-center overflow-hidden`}>
@@ -138,7 +138,7 @@ export default function Achievements() {
                 </h3>
                 <p className="text-xs font-semibold text-text-muted mb-3">{ach.organizer}</p>
                 {ach.highlight && (
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-semibold rounded-full mb-3">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-[11px] font-semibold rounded-full mb-3">
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>

@@ -48,14 +48,14 @@
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --color-primary: #6C63FF;
-  --color-primary-light: #8B85FF;
+  --color-primary-light: #9D97FF;
   --color-accent: #FF6B6B;
   --color-accent-warm: #FFB347;
-  --color-bg: #FAFAFA;
-  --color-bg-card: #FFFFFF;
-  --color-text: #2D3436;
-  --color-text-muted: #636E72;
-  --color-border: #E8E8E8;
+  --color-bg: #0F0B1F;
+  --color-bg-card: #16122A;
+  --color-text: #E8E8F0;
+  --color-text-muted: #7B7B9A;
+  --color-border: #252540;
 }
 
 

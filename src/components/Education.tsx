@@ -50,7 +50,7 @@ export default function Education() {
           {education.map((edu) => (
             <motion.div
               key={edu.degree}
-              className="bg-white rounded-2xl border border-border p-6 md:p-8"
+              className="bg-bg-card rounded-2xl border border-border p-6 md:p-8"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -72,7 +72,7 @@ export default function Education() {
                   <p className="text-sm text-text-muted leading-relaxed mb-4">{edu.focus}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {edu.highlights.map((h) => (
-                      <span key={h} className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full border border-emerald-200">
+                      <span key={h} className="px-3 py-1 bg-emerald-500/15 text-emerald-400 text-xs font-semibold rounded-full border border-emerald-500/25">
                         {h}
                       </span>
                     ))}

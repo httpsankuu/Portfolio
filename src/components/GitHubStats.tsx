@@ -127,7 +127,7 @@ export default function GitHubStats() {
         </motion.div>
 
         <motion.div
-          className="bg-white rounded-2xl border border-border p-6 md:p-8 shadow-sm"
+          className="bg-bg-card rounded-2xl border border-border p-6 md:p-8 shadow-sm shadow-black/20"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -145,7 +145,7 @@ export default function GitHubStats() {
                     <img
                       src={`https://github.com/${GITHUB_USERNAME}.png?size=80`}
                       alt={GITHUB_USERNAME}
-                      className="w-14 h-14 rounded-full border-2 border-primary/20 bg-white"
+                      className="w-14 h-14 rounded-full border-2 border-primary/30 bg-bg-card"
                       loading="lazy"
                     />
                     <div className="text-left">
@@ -217,7 +217,7 @@ export default function GitHubStats() {
                 href={repo.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white rounded-xl border border-border p-4 text-left hover:shadow-lg hover:border-primary/20 hover:-translate-y-1 transition-all duration-250 group"
+                className="bg-bg-card rounded-xl border border-border p-4 text-left hover:shadow-lg hover:shadow-black/20 hover:border-primary/30 hover:-translate-y-1 transition-all duration-250 group"
               >
                 <h4 className="font-bold text-sm text-text group-hover:text-primary transition-colors mb-1 truncate">
                   {repo.name}
@@ -272,7 +272,8 @@ export default function GitHubStats() {
 }
 
 function StatBox({ label, value }: { label: string; value: number }) {
-  return (              <div className="bg-white rounded-lg border border-border p-3 text-center">
+  return (
+    <div className="bg-bg rounded-lg border border-border p-3 text-center">
       <p className="text-xl font-bold text-primary">{value}</p>
       <p className="text-[11px] text-text-muted font-medium">{label}</p>
     </div>

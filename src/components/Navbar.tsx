@@ -79,7 +79,7 @@ export default function Navbar() {
       <div
         className={`transition-all duration-500 ease-out ${
           scrolled
-            ? "bg-white/80 backdrop-blur-xl shadow-lg shadow-black/5 border-b border-border/50"
+            ? "bg-bg-card/85 backdrop-blur-xl shadow-lg shadow-black/20 border-b border-border/50"
             : "bg-transparent"
         }`}
       >
@@ -161,7 +161,7 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="md:hidden bg-white/95 backdrop-blur-xl border-t border-border shadow-lg"
+            className="md:hidden bg-bg-card/95 backdrop-blur-xl border-t border-border shadow-xl shadow-black/30"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}

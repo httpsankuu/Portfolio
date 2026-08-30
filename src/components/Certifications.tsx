@@ -21,8 +21,8 @@ const certifications: Certification[] = [
     verifyUrl: "https://www.coursera.org/account/accomplishments/verify/WCE37QAX8LRX",
     previewSrc: "/coursera-python.pdf",
     previewType: "pdf",
-    color: "from-emerald-50 to-teal-50",
-    borderColor: "border-emerald-200",
+    color: "from-emerald-500/10 to-teal-500/10",
+    borderColor: "border-emerald-500/20",
   },
   {
     title: "Python Bootcamp",
@@ -31,8 +31,8 @@ const certifications: Certification[] = [
     verifyUrl: "https://www.udemy.com/certificate/UC-3f5311da-a742-410e-99c9-82ada382a690/",
     previewSrc: "/udemy-python.pdf",
     previewType: "pdf",
-    color: "from-violet-50 to-purple-50",
-    borderColor: "border-violet-200",
+    color: "from-violet-500/10 to-purple-500/10",
+    borderColor: "border-violet-500/20",
   },
   {
     title: "Infosys Certification",
@@ -40,8 +40,8 @@ const certifications: Certification[] = [
     date: "Completed",
     previewSrc: "/infosys.pdf",
     previewType: "pdf",
-    color: "from-blue-50 to-cyan-50",
-    borderColor: "border-blue-200",
+    color: "from-blue-500/10 to-cyan-500/10",
+    borderColor: "border-blue-500/20",
   },
   {
     title: "Effective Time Management",
@@ -49,8 +49,8 @@ const certifications: Certification[] = [
     date: "Completed",
     previewSrc: "/effective-time-management.png",
     previewType: "image",
-    color: "from-amber-50 to-orange-50",
-    borderColor: "border-amber-200",
+    color: "from-amber-500/10 to-orange-500/10",
+    borderColor: "border-amber-500/20",
   },
   {
     title: "C Programming",
@@ -58,8 +58,8 @@ const certifications: Certification[] = [
     date: "Completed",
     previewSrc: "/c-certificate.pdf",
     previewType: "pdf",
-    color: "from-green-50 to-lime-50",
-    borderColor: "border-green-200",
+    color: "from-green-500/10 to-lime-500/10",
+    borderColor: "border-green-500/20",
   },
 ];
 
@@ -77,7 +77,7 @@ export default function Certifications() {
   const reduced = useReducedMotion();
 
   return (
-    <section id="certifications" className="py-28 px-6 bg-white">
+    <section id="certifications" className="py-28 px-6 bg-bg">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -119,14 +119,14 @@ export default function Certifications() {
                       transition: { duration: 0.25, ease: "easeOut" },
                     }
               }
-              className={`group bg-gradient-to-br ${cert.color} rounded-2xl border ${cert.borderColor} p-5 flex flex-col hover:shadow-xl hover:shadow-primary/8 transition-shadow duration-300`}
+              className={`group bg-gradient-to-br ${cert.color} rounded-2xl border ${cert.borderColor} p-5 flex flex-col hover:shadow-xl hover:shadow-primary/10 transition-shadow duration-300`}
             >
               {/* Certificate preview thumbnail */}
               <a
                 href={cert.previewSrc}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full aspect-[4/3] bg-white/80 backdrop-blur-sm rounded-xl border border-white/60 mb-4 overflow-hidden block relative group/preview"
+                className="w-full aspect-[4/3] bg-bg-card/80 backdrop-blur-sm rounded-xl border border-border/60 mb-4 overflow-hidden block relative group/preview"
                 aria-label={`Preview ${cert.title}`}
               >
                 {cert.previewType === "image" ? (
@@ -143,8 +143,8 @@ export default function Certifications() {
                     style={{ border: "none" }}
                   />
                 )}
-                <div className="absolute inset-0 bg-black/0 group-hover/preview:bg-black/10 transition-colors duration-200 flex items-center justify-center">
-                  <span className="opacity-0 group-hover/preview:opacity-100 transition-opacity duration-200 text-[10px] font-mono text-white bg-black/50 px-2 py-1 rounded-full tracking-wider uppercase">
+                <div className="absolute inset-0 bg-black/0 group-hover/preview:bg-black/20 transition-colors duration-200 flex items-center justify-center">
+                  <span className="opacity-0 group-hover/preview:opacity-100 transition-opacity duration-200 text-[10px] font-mono text-white bg-black/60 px-2 py-1 rounded-full tracking-wider uppercase">
                     View
                   </span>
                 </div>
@@ -168,7 +168,7 @@ export default function Certifications() {
                     href={cert.verifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-auto inline-flex items-center justify-center gap-1.5 w-full px-4 py-2.5 bg-white/80 backdrop-blur-sm border border-border rounded-xl text-xs font-semibold text-text-muted hover:bg-primary hover:text-white hover:border-primary transition-all duration-200 group/btn"
+                    className="mt-auto inline-flex items-center justify-center gap-1.5 w-full px-4 py-2.5 bg-bg-card/80 backdrop-blur-sm border border-border/60 rounded-xl text-xs font-semibold text-text-muted hover:bg-primary hover:text-white hover:border-primary transition-all duration-200 group/btn"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />

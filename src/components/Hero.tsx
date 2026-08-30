@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import MagneticButton from "./MagneticButton";
+import ConstellationCanvas from "./ConstellationCanvas";
 
 // Layout: 2 at top (left / right), 2 in middle (left / right), 1 at bottom-center
 // Each card is ~148px wide × ~192px tall inside a ~530px × 560px container
@@ -85,9 +86,13 @@ export default function Hero() {
       className="relative min-h-screen flex items-center overflow-hidden"
       onMouseMove={onmousemove}
     >
+      {/* Constellation particle background */}
+      <ConstellationCanvas />
+
       {/* Decorative blobs */}
-      <div className="absolute top-20 left-[-10%] w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-20 right-[-5%] w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-20 left-[-10%] w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-20 right-[-5%] w-80 h-80 bg-accent/8 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/4 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-24 pb-16 flex flex-col md:flex-row items-center gap-12">
         {/* Left — text content */}
@@ -179,7 +184,7 @@ export default function Hero() {
 
           {/* Location pill */}
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-border text-sm text-text-muted shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-bg-card rounded-full border border-border text-sm text-text-muted shadow-sm"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
@@ -200,7 +205,7 @@ export default function Hero() {
               className="relative shrink-0"
               style={{ transform: `rotate(${p.rotation}deg)` }}
             >
-              <div className="bg-white p-2 pb-7 rounded-sm shadow-md shadow-black/10 w-28">
+              <div className="bg-bg-card p-2 pb-7 rounded-sm shadow-md shadow-black/30 border border-border/50 w-28">
                 <div
                   className={`w-24 h-24 rounded-sm bg-gradient-to-br ${p.color} overflow-hidden flex items-center justify-center text-2xl`}
                 >
@@ -321,7 +326,7 @@ function PolaroidCard({
       }
     >
       <motion.div
-        className="bg-white p-2 pb-8 rounded-sm shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/15 transition-shadow duration-300"
+        className="bg-bg-card p-2 pb-8 rounded-sm shadow-lg shadow-black/30 border border-border/50 hover:shadow-xl hover:shadow-black/40 hover:border-primary/30 transition-all duration-300"
         animate={
           reduced
             ? undefined
@@ -356,7 +361,7 @@ function PolaroidCard({
           {p.label.split(" ").slice(1).join(" ")}
         </p>
         {/* Tape effect */}
-        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-10 h-4 bg-white/60 backdrop-blur-sm rounded-sm border border-white/40 shadow-sm rotate-1" />
+        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-10 h-4 bg-primary/20 backdrop-blur-sm rounded-sm border border-primary/30 shadow-sm rotate-1" />
       </motion.div>
     </motion.div>
   );

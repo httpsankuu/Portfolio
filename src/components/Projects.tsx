@@ -20,11 +20,11 @@ const projects: Project[] = [
     description:
       "A lightning-fast, privacy-first image optimizer & converter. 100% browser-based processing — your images never leave your device. Built with Astro 6 & Tailwind 4.",
     tags: [
-      { name: "Astro v6.4", color: "bg-orange-100 text-orange-700" },
-      { name: "React v19", color: "bg-sky-100 text-sky-700" },
-      { name: "Tailwind CSS v4", color: "bg-cyan-100 text-cyan-700" },
-      { name: "i18next", color: "bg-violet-100 text-violet-700" },
-      { name: "Cloudflare Pages", color: "bg-amber-100 text-amber-700" },
+      { name: "Astro v6.4", color: "bg-orange-500/15 text-orange-400 border border-orange-500/20" },
+      { name: "React v19", color: "bg-sky-500/15 text-sky-400 border border-sky-500/20" },
+      { name: "Tailwind CSS v4", color: "bg-cyan-500/15 text-cyan-400 border border-cyan-500/20" },
+      { name: "i18next", color: "bg-violet-500/15 text-violet-400 border border-violet-500/20" },
+      { name: "Cloudflare Pages", color: "bg-amber-500/15 text-amber-400 border border-amber-500/20" },
     ],
     link: { text: "GitHub", href: "https://github.com/httpsankuu/MrCompress.com" },
     liveUrl: "https://mrcompress.pages.dev/",
@@ -38,10 +38,10 @@ const projects: Project[] = [
     description:
       "An AI-powered resume analysis tool built with Python. Uploads and parses PDF resumes, extracts key skills, matches them against job descriptions, and generates detailed reports.",
     tags: [
-      { name: "spaCy", color: "bg-emerald-100 text-emerald-700" },
-      { name: "FastAPI", color: "bg-teal-100 text-teal-700" },
-      { name: "Next.js 16", color: "bg-gray-100 text-gray-700" },
-      { name: "sentence-transformers", color: "bg-purple-100 text-purple-700" },
+      { name: "spaCy", color: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20" },
+      { name: "FastAPI", color: "bg-teal-500/15 text-teal-400 border border-teal-500/20" },
+      { name: "Next.js 16", color: "bg-white/10 text-text-muted border border-border" },
+      { name: "sentence-transformers", color: "bg-purple-500/15 text-purple-400 border border-purple-500/20" },
     ],
     link: { text: "GitHub", href: "https://github.com/httpsankuu/resume-analyzer-ai" },
     liveUrl: "https://resumeanalyzer-10.vercel.app/",
@@ -107,7 +107,7 @@ export default function Projects() {
                       transition: { duration: 0.25, ease: "easeOut" },
                     }
               }
-              className="group relative bg-white rounded-2xl border border-border overflow-hidden"
+              className="group relative bg-bg-card rounded-2xl border border-border overflow-hidden"
             >
               {/* Hover glow border */}
               <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"
@@ -135,7 +135,7 @@ export default function Projects() {
                     {project.metric.value}
                   </div>
                 )}
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-[11px] font-bold text-text px-3 py-1.5 rounded-full tracking-wide uppercase shadow-sm">
+                <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-[11px] font-bold text-white px-3 py-1.5 rounded-full tracking-wide uppercase shadow-sm">
                   {project.label}
                 </div>
               </div>

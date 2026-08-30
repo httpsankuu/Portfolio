@@ -21,8 +21,8 @@ const categories: Category[] = [
   {
     title: "Languages",
     icon: "💻",
-    color: "from-violet-50 to-purple-50",
-    borderColor: "border-violet-200",
+    color: "from-violet-500/10 to-purple-500/10",
+    borderColor: "border-violet-500/20",
     skills: [
       { name: "Python", description: "OOP, scripting, problem solving — my daily driver", proficiency: "Advanced" },
       { name: "HTML", description: "Semantic markup, accessibility, responsive layouts", proficiency: "Intermediate" },
@@ -34,8 +34,8 @@ const categories: Category[] = [
   {
     title: "ML/DL Frameworks",
     icon: "🧠",
-    color: "from-blue-50 to-cyan-50",
-    borderColor: "border-blue-200",
+    color: "from-blue-500/10 to-cyan-500/10",
+    borderColor: "border-blue-500/20",
     skills: [
       { name: "Flask", description: "Lightweight web apps, REST APIs, model serving", proficiency: "Intermediate" },
       { name: "Streamlit", description: "Rapid prototyping, ML dashboards, data apps", proficiency: "Intermediate" },
@@ -44,8 +44,8 @@ const categories: Category[] = [
   {
     title: "Data & Analysis",
     icon: "📊",
-    color: "from-emerald-50 to-teal-50",
-    borderColor: "border-emerald-200",
+    color: "from-emerald-500/10 to-teal-500/10",
+    borderColor: "border-emerald-500/20",
     skills: [
       { name: "Data Wrangling", description: "Cleaning, transforming, and preparing datasets", proficiency: "Intermediate" },
       { name: "Exploratory Data Analysis", description: "Visualization, pattern discovery, statistical summaries", proficiency: "Intermediate" },
@@ -55,8 +55,8 @@ const categories: Category[] = [
   {
     title: "MLOps & Infra",
     icon: "⚙️",
-    color: "from-amber-50 to-orange-50",
-    borderColor: "border-amber-200",
+    color: "from-amber-500/10 to-orange-500/10",
+    borderColor: "border-amber-500/20",
     skills: [
       { name: "Git & GitHub", description: "Version control, collaboration, open-source workflows", proficiency: "Intermediate" },
       { name: "Vite / Astro", description: "Fast web tooling, static site generation", proficiency: "Intermediate" },
@@ -72,9 +72,9 @@ const currentlyLearning = [
 ];
 
 const proficiencyStyles: Record<Proficiency, string> = {
-  Advanced: "bg-primary/15 text-primary border border-primary/20",
-  Intermediate: "bg-accent-warm/15 text-amber-700 border border-amber-200",
-  Beginner: "bg-gray-100 text-gray-600 border border-gray-200",
+  Advanced: "bg-primary/20 text-primary-light border border-primary/30",
+  Intermediate: "bg-amber-500/15 text-amber-400 border border-amber-500/25",
+  Beginner: "bg-white/10 text-text-muted border border-border",
 };
 
 const container = {
@@ -138,7 +138,7 @@ export default function Arsenal() {
                 {cat.skills.map((skill) => (
                   <motion.div
                     key={skill.name}
-                    className="flex items-start justify-between gap-3 bg-white/70 backdrop-blur-sm rounded-xl p-3.5 border border-white/80 hover:border-primary/20 transition-colors"
+                    className="flex items-start justify-between gap-3 bg-bg-card/80 backdrop-blur-sm rounded-xl p-3.5 border border-border/60 hover:border-primary/30 transition-colors"
                     whileHover={reduced ? undefined : { scale: 1.03, transition: { duration: 0.2, type: "spring", stiffness: 400, damping: 17 } }}
                   >
                     <div className="flex-1 min-w-0">
@@ -179,7 +179,7 @@ export default function Arsenal() {
               {currentlyLearning.map((item) => (
                 <motion.div
                   key={item.name}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-white rounded-full border border-border shadow-sm"
+                  className="flex items-center gap-2 px-4 py-2.5 bg-bg-card rounded-full border border-border"
                   whileHover={reduced ? undefined : { scale: 1.05, y: -2, boxShadow: "0 8px 25px rgba(108,99,255,0.15)", transition: { duration: 0.2 } }}
                 >
                   <span className="text-base">{item.icon}</span>
