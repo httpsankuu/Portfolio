@@ -48,6 +48,23 @@ const projects: Project[] = [
     gradient: "from-violet-400 via-purple-400 to-indigo-400",
     icon: "📄",
   },
+  {
+    label: "Dev Tools",
+    title: "Codixa",
+    description:
+      "Developer tools, reimagined. A curated collection of 100% browser-based utilities — formatters, generators, encoders, and converters. Fully client-side, no data ever leaves your device.",
+    tags: [
+      { name: "React", color: "bg-sky-500/15 text-sky-400 border border-sky-500/20" },
+      { name: "Vite", color: "bg-violet-500/15 text-violet-400 border border-violet-500/20" },
+      { name: "Tailwind CSS", color: "bg-cyan-500/15 text-cyan-400 border border-cyan-500/20" },
+      { name: "Vercel", color: "bg-white/10 text-text-muted border border-border" },
+    ],
+    link: { text: "GitHub", href: "https://github.com/httpsankuu/codixa" },
+    liveUrl: "https://codixa-psi.vercel.app/",
+    gradient: "from-teal-400 via-cyan-400 to-sky-400",
+    icon: "🛠️",
+    metric: { value: "100% Client-side", color: "bg-teal-500" },
+  },
 ];
 
 const container = {
