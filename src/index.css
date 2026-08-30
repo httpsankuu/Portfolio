@@ -59,6 +59,15 @@
 }
 
 
+/* ─── Light mode overrides (toggled via html.light class) ─── */
+html.light {
+  --color-bg: #FAFAFA;
+  --color-bg-card: #FFFFFF;
+  --color-text: #2D3436;
+  --color-text-muted: #636E72;
+  --color-border: #E8E8E8;
+  --color-primary-light: #8B85FF;
+}
 
 html {
   scroll-behavior: smooth;
@@ -71,12 +80,22 @@ body {
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  /* Smooth theme transition */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
   background-color: var(--color-primary);
   color: white;
+}
+
+/* ─── Smooth colour transitions for all themed elements ─── */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
 }
 
 /* ─── Reduced motion: disable non-essential animations ─── */

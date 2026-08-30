@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScrollSpy } from "../hooks/useScrollSpy";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { label: "About", href: "#about", id: "about" },
@@ -122,38 +123,43 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* Mobile hamburger */}
-          <button
-            ref={hamburgerRef}
-            className="md:hidden p-2 rounded-lg hover:bg-primary/10 transition-colors"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
-          >
-            <svg
-              className="w-6 h-6 text-text"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          {/* Theme toggle + Mobile hamburger */}
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+
+            {/* Mobile hamburger */}
+            <button
+              ref={hamburgerRef}
+              className="md:hidden p-2 rounded-lg hover:bg-primary/10 transition-colors"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
             >
-              {mobileOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
+              <svg
+                className="w-6 h-6 text-text"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {mobileOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
