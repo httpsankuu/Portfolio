@@ -80,7 +80,7 @@ export default function GitHubStats() {
 
         // Calculate language stats with multi-language repository breakdown
         const langMap: Record<string, number> = {};
-        const headers = import.meta.env.VITE_GITHUB_TOKEN
+        const headers: Record<string, string> = import.meta.env.VITE_GITHUB_TOKEN
           ? { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
           : {};
 

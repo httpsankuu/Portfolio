@@ -156,7 +156,7 @@ export default function Hero() {
 
           {/* CTA buttons */}
           <motion.div
-            className="flex flex-wrap gap-4 justify-center md:justify-start mb-6"
+            className="flex flex-wrap gap-3.5 justify-center md:justify-start mb-6"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 1.3 }}
@@ -164,7 +164,7 @@ export default function Hero() {
             <MagneticButton
               href="#contact"
               strength={0.25}
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-primary text-white rounded-full font-semibold text-sm hover:bg-primary-light transition-colors duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-primary text-white rounded-full font-semibold text-sm hover:bg-primary-light transition-colors duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 cursor-pointer"
             >
               Get in Touch
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,10 +172,21 @@ export default function Hero() {
               </svg>
             </MagneticButton>
             <a
-              href="#experience"
-              className="inline-flex items-center gap-2 px-7 py-3.5 border-2 border-border text-text rounded-full font-semibold text-sm hover:border-primary hover:text-primary transition-all duration-300 hover:-translate-y-0.5"
+              href="/Ankit_Kumar_Singh_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-bg-card border-2 border-border text-text rounded-full font-semibold text-sm hover:border-primary hover:text-primary transition-all duration-300 hover:-translate-y-0.5 shadow-sm"
             >
-              View Experience
+              <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              View CV
+            </a>
+            <a
+              href="#experience"
+              className="inline-flex items-center gap-2 px-6 py-3.5 border-2 border-border text-text-muted rounded-full font-semibold text-sm hover:border-primary/50 hover:text-text transition-all duration-300 hover:-translate-y-0.5"
+            >
+              Experience
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
