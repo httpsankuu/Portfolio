@@ -78,13 +78,50 @@ export default function GitHubStats() {
         setProfile(profileData);
         setTopRepos(reposData.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 6));
 
-        // Calculate language stats
+        // Calculate language stats with multi-language repository breakdown
         const langMap: Record<string, number> = {};
-        reposData.forEach((repo) => {
-          if (repo.language) {
-            langMap[repo.language] = (langMap[repo.language] || 0) + 1;
+        const headers = import.meta.env.VITE_GITHUB_TOKEN
+          ? { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
+          : {};
+
+        // Fetch detailed language byte breakdown for top repositories
+        try {
+          const langPromises = reposData.slice(0, 10).map(async (repo) => {
+            const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/languages`, { headers });
+            if (res.ok) {
+              return (await res.json()) as Record<string, number>;
+            }
+            return null;
+          });
+
+          const langResults = await Promise.allSettled(langPromises);
+          let foundMultiLang = false;
+
+          langResults.forEach((result) => {
+            if (result.status === "fulfilled" && result.value) {
+              Object.entries(result.value).forEach(([lang, bytes]) => {
+                langMap[lang] = (langMap[lang] || 0) + bytes;
+                foundMultiLang = true;
+              });
+            }
+          });
+
+          // Fallback if rate-limited or no multi-lang bytes returned
+          if (!foundMultiLang) {
+            reposData.forEach((repo) => {
+              if (repo.language) {
+                langMap[repo.language] = (langMap[repo.language] || 0) + 1;
+              }
+            });
           }
-        });
+        } catch {
+          reposData.forEach((repo) => {
+            if (repo.language) {
+              langMap[repo.language] = (langMap[repo.language] || 0) + 1;
+            }
+          });
+        }
+
         const sorted = Object.entries(langMap)
           .sort(([, a], [, b]) => b - a)
           .slice(0, 6)

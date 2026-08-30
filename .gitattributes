@@ -1,0 +1,10 @@
+# Ensure HTML and CSS are detected and highlighted in GitHub repository statistics
+*.html linguist-detectable=true linguist-language=HTML
+*.css linguist-detectable=true linguist-language=CSS
+*.tsx linguist-detectable=true linguist-language=TypeScript
+*.ts linguist-detectable=true linguist-language=TypeScript
+
+# Ignore build artifacts and lockfiles from language stats
+package-lock.json linguist-generated=true
+dist/* linguist-vendored=true
+public/fonts/* linguist-vendored=true
