@@ -2,7 +2,7 @@
 
 **Personal developer portfolio and interactive showcase** of machine learning systems, modern web engineering projects, credentials, and open-source work. Built with performance, accessibility, and modern aesthetics in mind.
 
-🔗 **[Live Portfolio Website](https://ankitkumarsingh.dev)** • 📄 **[Download CV](public/Ankit_Kumar_Singh_CV.pdf)**
+🔗 **[Live Website!](https://portfolio-engineerhihu.vercel.app/)** • 📄 **[Download CV](public/Ankit_Kumar_Singh_CV.pdf)**
 
 ---
 
