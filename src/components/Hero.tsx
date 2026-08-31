@@ -4,58 +4,48 @@ import { useReducedMotion } from "../hooks/useReducedMotion";
 import MagneticButton from "./MagneticButton";
 import ConstellationCanvas from "./ConstellationCanvas";
 
-// Layout: 2 at top (left / right), 2 in middle (left / right), 1 at bottom-center
-// Each card is ~148px wide × ~192px tall inside a ~530px × 560px container
+// Layout: 4 polaroid cards in a balanced floating 2x2 arrangement
+// Top-Left (Profile), Top-Right (ML Project), Bottom-Left (Lab Work), Bottom-Right (Coffee & Code)
 const polaroids = [
   {
     id: 1,
-    color: "from-rose-200 to-orange-100",
-    label: "📸 Lab work",
-    photo: "/photo-desk.png",
-    rotation: -9,
-    position: "top-[2%] left-[2%]",          // top-left
-    floatDuration: 6,
-    floatAmount: 8,
+    color: "from-sky-200 to-indigo-100",
+    label: "🎓 Ankit Singh",
+    photo: "/profile.webp",
+    rotation: -6,
+    position: "top-[2%] left-[4%]",           // top-left
+    floatDuration: 6.5,
+    floatAmount: 7,
   },
   {
     id: 2,
-    color: "from-sky-200 to-indigo-100",
-    label: "🎓 Graduation",
-    photo: null,
-    rotation: 7,
-    position: "top-[4%] right-[4%]",          // top-right
+    color: "from-emerald-200 to-teal-100",
+    label: "🤖 ML project",
+    photo: "/photo-project.png",
+    rotation: 6,
+    position: "top-[4%] right-[6%]",          // top-right
     floatDuration: 7,
     floatAmount: 6,
   },
   {
     id: 3,
-    color: "from-purple-200 to-pink-100",
-    label: "☕ Coffee & code",
-    photo: "/photo-coffee.png",
+    color: "from-rose-200 to-orange-100",
+    label: "📸 Lab work",
+    photo: "/photo-desk.png",
     rotation: -5,
-    position: "top-[40%] left-[4%]",          // middle-left
-    floatDuration: 7.5,
-    floatAmount: 6,
+    position: "bottom-[4%] left-[6%]",        // bottom-left
+    floatDuration: 6,
+    floatAmount: 8,
   },
   {
     id: 4,
-    color: "from-amber-200 to-yellow-100",
-    label: "🏆 Hackathon win",
-    photo: null,
-    rotation: 6,
-    position: "top-[38%] right-[3%]",         // middle-right
-    floatDuration: 5.5,
-    floatAmount: 7,
-  },
-  {
-    id: 5,
-    color: "from-emerald-200 to-teal-100",
-    label: "🤖 ML project",
-    photo: "/photo-project.png",
-    rotation: -4,
-    position: "bottom-[2%] left-[28%]",       // bottom-center
-    floatDuration: 6.5,
-    floatAmount: 5,
+    color: "from-purple-200 to-pink-100",
+    label: "☕ Coffee & code",
+    photo: "/photo-coffee.png",
+    rotation: 5,
+    position: "bottom-[6%] right-[8%]",       // bottom-right
+    floatDuration: 7.5,
+    floatAmount: 6,
   },
 ];
 
@@ -221,7 +211,7 @@ export default function Hero() {
                   className={`w-24 h-24 rounded-sm bg-gradient-to-br ${p.color} overflow-hidden flex items-center justify-center text-2xl`}
                 >
                   {p.photo ? (
-                    <img src={p.photo} alt={p.label} className="w-full h-full object-cover" loading="lazy" />
+                    <img src={p.photo} alt={p.label} className="w-full h-full object-cover object-top" loading="lazy" />
                   ) : (
                     <span role="img" aria-label={p.label}>
                       {p.label.split(" ")[0]}
@@ -360,7 +350,7 @@ function PolaroidCard({
           className={`w-28 h-28 md:w-36 md:h-36 rounded-sm bg-gradient-to-br ${p.color} overflow-hidden flex items-center justify-center text-3xl md:text-4xl`}
         >
           {p.photo ? (
-            <img src={p.photo} alt={p.label} className="w-full h-full object-cover" loading="lazy" />
+            <img src={p.photo} alt={p.label} className="w-full h-full object-cover object-top" loading="lazy" />
           ) : (
             <span role="img" aria-label={p.label}>
               {p.label.split(" ")[0]}
