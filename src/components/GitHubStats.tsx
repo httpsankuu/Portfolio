@@ -50,6 +50,54 @@ function getLangColor(name: string, index: number): string {
   return LANG_COLORS[name] || FALLBACK_LANG_COLORS[index % FALLBACK_LANG_COLORS.length];
 }
 
+const CACHE_KEY = "github_stats_cache_v1";
+const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+
+const FALLBACK_PROFILE: GitHubProfile = {
+  public_repos: 12,
+  followers: 5,
+  following: 8,
+  public_gists: 0,
+};
+
+const FALLBACK_REPOS: Repo[] = [
+  {
+    name: "MrCompress.com",
+    stargazers_count: 5,
+    language: "Astro",
+    html_url: "https://github.com/httpsankuu/MrCompress.com",
+    description: "A lightning-fast, privacy-first image optimizer & converter. 100% browser-based processing.",
+  },
+  {
+    name: "resume-analyzer-ai",
+    stargazers_count: 4,
+    language: "Python",
+    html_url: "https://github.com/httpsankuu/resume-analyzer-ai",
+    description: "AI-powered resume parser and job description matcher using spaCy & FastAPI.",
+  },
+  {
+    name: "codixa",
+    stargazers_count: 3,
+    language: "TypeScript",
+    html_url: "https://github.com/httpsankuu/codixa",
+    description: "Curated collection of 100% browser-based developer utilities.",
+  },
+  {
+    name: "Portfolio",
+    stargazers_count: 2,
+    language: "TypeScript",
+    html_url: "https://github.com/httpsankuu/Portfolio",
+    description: "Modern personal portfolio showcasing projects, experience, and skills.",
+  },
+];
+
+const FALLBACK_LANGS: LangStat[] = [
+  { name: "Python", count: 42, color: LANG_COLORS["Python"] },
+  { name: "TypeScript", count: 28, color: LANG_COLORS["TypeScript"] },
+  { name: "JavaScript", count: 18, color: LANG_COLORS["JavaScript"] },
+  { name: "Astro", count: 12, color: LANG_COLORS["Astro"] },
+];
+
 export default function GitHubStats() {
   const [profile, setProfile] = useState<GitHubProfile | null>(null);
   const [topRepos, setTopRepos] = useState<Repo[]>([]);
@@ -57,72 +105,64 @@ export default function GitHubStats() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // 1. Try loading cached data first for instant UI and fallback
+    let hasCachedData = false;
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed.profile && Array.isArray(parsed.topRepos) && Array.isArray(parsed.langStats)) {
+          setProfile(parsed.profile);
+          setTopRepos(parsed.topRepos);
+          setLangStats(parsed.langStats);
+          setLoading(false);
+          hasCachedData = true;
+
+          // If cache is fresh, skip fetching
+          if (Date.now() - (parsed.timestamp || 0) < CACHE_TTL_MS) {
+            return;
+          }
+        }
+      }
+    } catch {
+      // Ignore localStorage errors (e.g. private browsing mode)
+    }
+
     const fetchStats = async () => {
       try {
-        const [profileRes, reposRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, {
-            headers: import.meta.env.VITE_GITHUB_TOKEN
-              ? { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
-              : {},
-          }),
-          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`, {
-            headers: import.meta.env.VITE_GITHUB_TOKEN
-              ? { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
-              : {},
-          }),
-        ]);
-
-        const profileData = await profileRes.json();
-        const reposData: Repo[] = await reposRes.json();
-
-        setProfile(profileData);
-        setTopRepos(reposData.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0, 6));
-
-        // Calculate language stats with multi-language repository breakdown
-        const langMap: Record<string, number> = {};
         const headers: Record<string, string> = import.meta.env.VITE_GITHUB_TOKEN
           ? { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
           : {};
 
-        // Fetch detailed language byte breakdown for top repositories
-        try {
-          const langPromises = reposData.slice(0, 10).map(async (repo) => {
-            const res = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/languages`, { headers });
-            if (res.ok) {
-              return (await res.json()) as Record<string, number>;
-            }
-            return null;
-          });
+        const [profileRes, reposRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, { headers }),
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`, { headers }),
+        ]);
 
-          const langResults = await Promise.allSettled(langPromises);
-          let foundMultiLang = false;
-
-          langResults.forEach((result) => {
-            if (result.status === "fulfilled" && result.value) {
-              Object.entries(result.value).forEach(([lang, bytes]) => {
-                langMap[lang] = (langMap[lang] || 0) + bytes;
-                foundMultiLang = true;
-              });
-            }
-          });
-
-          // Fallback if rate-limited or no multi-lang bytes returned
-          if (!foundMultiLang) {
-            reposData.forEach((repo) => {
-              if (repo.language) {
-                langMap[repo.language] = (langMap[repo.language] || 0) + 1;
-              }
-            });
-          }
-        } catch {
-          reposData.forEach((repo) => {
-            if (repo.language) {
-              langMap[repo.language] = (langMap[repo.language] || 0) + 1;
-            }
-          });
+        if (!profileRes.ok || !reposRes.ok) {
+          throw new Error(`GitHub API rate limit or error (status: ${profileRes.status}/${reposRes.status})`);
         }
 
-        const sorted = Object.entries(langMap)
+        const profileData: GitHubProfile = await profileRes.json();
+        const reposData: Repo[] = await reposRes.json();
+
+        if (!Array.isArray(reposData)) {
+          throw new Error("Invalid repos response format");
+        }
+
+        const sortedRepos = [...reposData]
+          .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
+          .slice(0, 6);
+
+        // Calculate language stats from repositories
+        const langMap: Record<string, number> = {};
+        reposData.forEach((repo) => {
+          if (repo.language) {
+            langMap[repo.language] = (langMap[repo.language] || 0) + 1;
+          }
+        });
+
+        const sortedLangs = Object.entries(langMap)
           .sort(([, a], [, b]) => b - a)
           .slice(0, 6)
           .map(([name, count], i) => ({
@@ -130,9 +170,32 @@ export default function GitHubStats() {
             count,
             color: getLangColor(name, i),
           }));
-        setLangStats(sorted);
+
+        setProfile(profileData);
+        setTopRepos(sortedRepos);
+        setLangStats(sortedLangs);
+
+        // Save fresh data into localStorage cache
+        try {
+          localStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify({
+              profile: profileData,
+              topRepos: sortedRepos,
+              langStats: sortedLangs,
+              timestamp: Date.now(),
+            })
+          );
+        } catch {
+          // Ignore cache save error
+        }
       } catch (err) {
-        console.error("Failed to fetch GitHub stats:", err);
+        console.warn("GitHub API unavailable, using fallback/cached data:", err);
+        if (!hasCachedData) {
+          setProfile(FALLBACK_PROFILE);
+          setTopRepos(FALLBACK_REPOS);
+          setLangStats(FALLBACK_LANGS);
+        }
       } finally {
         setLoading(false);
       }
