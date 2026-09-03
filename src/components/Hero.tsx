@@ -21,7 +21,7 @@ const polaroids = [
     id: 2,
     color: "from-emerald-200 to-teal-100",
     label: "🤖 ML project",
-    photo: "/photo-project.png",
+    photo: "/photo-project.webp",
     rotation: 6,
     position: "top-[4%] right-[6%]",          // top-right
     floatDuration: 7,
@@ -31,7 +31,7 @@ const polaroids = [
     id: 3,
     color: "from-rose-200 to-orange-100",
     label: "📸 Lab work",
-    photo: "/photo-desk.png",
+    photo: "/photo-desk.webp",
     rotation: -5,
     position: "bottom-[4%] left-[6%]",        // bottom-left
     floatDuration: 6,
@@ -41,7 +41,7 @@ const polaroids = [
     id: 4,
     color: "from-purple-200 to-pink-100",
     label: "☕ Coffee & code",
-    photo: "/photo-coffee.png",
+    photo: "/photo-coffee.webp",
     rotation: 5,
     position: "bottom-[6%] right-[8%]",       // bottom-right
     floatDuration: 7.5,
@@ -203,7 +203,7 @@ export default function Hero() {
           {polaroids.map((p) => (
             <div
               key={p.id}
-              className="relative shrink-0"
+              className="relative shrink-0 transform-gpu"
               style={{ transform: `rotate(${p.rotation}deg)` }}
             >
               <div className="bg-bg-card p-2 pb-7 rounded-sm shadow-md shadow-black/30 border border-border/50 w-28">
@@ -211,7 +211,13 @@ export default function Hero() {
                   className={`w-24 h-24 rounded-sm bg-gradient-to-br ${p.color} overflow-hidden flex items-center justify-center text-2xl`}
                 >
                   {p.photo ? (
-                    <img src={p.photo} alt={p.label} className="w-full h-full object-cover object-top" loading="lazy" />
+                    <img
+                      src={p.photo}
+                      alt={p.label}
+                      className="w-full h-full object-cover object-top"
+                      loading="eager"
+                      decoding="async"
+                    />
                   ) : (
                     <span role="img" aria-label={p.label}>
                       {p.label.split(" ")[0]}
@@ -246,7 +252,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 0.6 }}
@@ -289,53 +295,57 @@ function PolaroidCard({
   reduced: boolean;
   loaded: boolean;
 }) {
-  const parallaxX = useTransform(mouseX, [-1, 1], [-6, 6]);
+  const [isHovered, setIsHovered] = useState(false);
+  const parallaxX = useTransform(mouseX, [-1, 1], [-5, 5]);
   const parallaxY = useTransform(mouseY, [-1, 1], [-4, 4]);
 
   const baseRotate = p.rotation;
-  const floatY = reduced ? 0 : [0, -p.floatAmount, 0];
+  const floatY = reduced || isHovered ? 0 : [0, -p.floatAmount, 0];
 
   return (
     <motion.div
-      className={`absolute ${p.position} group cursor-default`}
-      initial={{ opacity: 0, y: 40, rotate: 0, scale: 0.8 }}
+      className={`absolute ${p.position} cursor-pointer select-none transform-gpu will-change-transform`}
+      style={{
+        zIndex: isHovered ? 40 : 10 + index,
+        x: !reduced ? (parallaxX as any) : 0,
+        y: !reduced ? (parallaxY as any) : 0,
+      }}
+      initial={{ opacity: 0, y: 30, rotate: 0, scale: 0.85 }}
       animate={
         loaded
           ? {
               opacity: 1,
               y: 0,
-              rotate: baseRotate,
-              scale: 1,
+              rotate: isHovered ? baseRotate * 0.2 : baseRotate,
+              scale: isHovered ? 1.08 : 1,
             }
           : {}
       }
       transition={{
-        duration: 0.7,
-        delay: 0.8 + index * 0.1,
-        ease: [0.34, 1.56, 0.64, 1], // bounce easing
+        type: "spring",
+        stiffness: 300,
+        damping: 24,
+        mass: 0.8,
+        delay: loaded ? (isHovered ? 0 : 0) : 0.6 + index * 0.1,
       }}
-      style={!reduced ? { x: parallaxX as any, y: parallaxY as any } : undefined}
-      whileHover={
-        reduced
-          ? undefined
-          : {
-              y: -8,
-              rotate: baseRotate * 0.3,
-              scale: 1.08,
-              transition: { duration: 0.3, ease: "easeOut" },
-            }
-      }
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
     >
       <motion.div
-        className="bg-bg-card p-2 pb-8 rounded-sm shadow-lg shadow-black/30 border border-border/50 hover:shadow-xl hover:shadow-black/40 hover:border-primary/30 transition-all duration-300"
+        className="bg-bg-card p-2.5 pb-8 rounded-sm shadow-lg border border-border/60 transform-gpu will-change-transform"
+        style={{
+          boxShadow: isHovered
+            ? "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(108, 99, 255, 0.2)"
+            : "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
+        }}
         animate={
-          reduced
-            ? undefined
+          reduced || isHovered
+            ? { y: 0 }
             : { y: floatY }
         }
         transition={
-          reduced
-            ? undefined
+          reduced || isHovered
+            ? { duration: 0.25 }
             : {
                 y: {
                   duration: p.floatDuration,
@@ -345,24 +355,39 @@ function PolaroidCard({
               }
         }
       >
-        {/* Image area — real photo or emoji placeholder */}
+        {/* Image area */}
         <div
-          className={`w-28 h-28 md:w-36 md:h-36 rounded-sm bg-gradient-to-br ${p.color} overflow-hidden flex items-center justify-center text-3xl md:text-4xl`}
+          className={`w-28 h-28 md:w-36 md:h-36 rounded-sm bg-gradient-to-br ${p.color} overflow-hidden flex items-center justify-center text-3xl md:text-4xl relative`}
         >
           {p.photo ? (
-            <img src={p.photo} alt={p.label} className="w-full h-full object-cover object-top" loading="lazy" />
+            <img
+              src={p.photo}
+              alt={p.label}
+              className="w-full h-full object-cover object-top transform-gpu transition-transform duration-300 ease-out"
+              style={{ transform: isHovered ? "scale(1.05)" : "scale(1)" }}
+              loading="eager"
+              decoding="async"
+            />
           ) : (
             <span role="img" aria-label={p.label}>
               {p.label.split(" ")[0]}
             </span>
           )}
+          {/* Subtle glossy sheen highlight */}
+          <div
+            className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none transition-opacity duration-300"
+            style={{ opacity: isHovered ? 1 : 0 }}
+          />
         </div>
+
         {/* Caption */}
-        <p className="absolute bottom-2 left-0 right-0 text-center text-[11px] md:text-xs font-medium text-text-muted font-[cursive]">
+        <p className="absolute bottom-2 left-0 right-0 text-center text-[11px] md:text-xs font-medium text-text-muted font-[cursive] transition-colors duration-200"
+           style={{ color: isHovered ? "var(--color-primary, #6C63FF)" : undefined }}>
           {p.label.split(" ").slice(1).join(" ")}
         </p>
-        {/* Tape effect */}
-        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-10 h-4 bg-primary/20 backdrop-blur-sm rounded-sm border border-primary/30 shadow-sm rotate-1" />
+
+        {/* Polaroid Tape effect */}
+        <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-10 h-4 bg-primary/20 backdrop-blur-sm rounded-sm border border-primary/30 shadow-sm rotate-1 pointer-events-none" />
       </motion.div>
     </motion.div>
   );
