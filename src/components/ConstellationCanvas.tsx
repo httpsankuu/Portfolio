@@ -57,7 +57,7 @@ export default function ConstellationCanvas() {
       mouse.current = { x: -9999, y: -9999 };
     };
     window.addEventListener("mousemove", onMouseMove, { passive: true });
-    window.addEventListener("mouseleave", onMouseLeave);
+    document.addEventListener("mouseleave", onMouseLeave);
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -126,7 +126,7 @@ export default function ConstellationCanvas() {
       cancelAnimationFrame(rafId.current);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("mouseleave", onMouseLeave);
     };
   }, [reduced]);
 

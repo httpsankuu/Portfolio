@@ -81,8 +81,8 @@ export default function Hero() {
 
       {/* Decorative blobs */}
       <div className="absolute top-20 left-[-10%] w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-20 right-[-5%] w-80 h-80 bg-accent/8 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/4 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-20 right-[-5%] w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-24 pb-16 flex flex-col md:flex-row items-center gap-12">
         {/* Left — text content */}
@@ -224,7 +224,7 @@ export default function Hero() {
                     </span>
                   )}
                 </div>
-                <p className="text-center text-[10px] font-medium text-text-muted font-[cursive] mt-1 leading-tight">
+                <p className="text-center text-[10px] font-medium text-text-muted mt-1 leading-tight">
                   {p.label.split(" ").slice(1).join(" ")}
                 </p>
                 {/* Tape */}
@@ -381,7 +381,7 @@ function PolaroidCard({
         </div>
 
         {/* Caption */}
-        <p className="absolute bottom-2 left-0 right-0 text-center text-[11px] md:text-xs font-medium text-text-muted font-[cursive] transition-colors duration-200"
+        <p className="absolute bottom-2 left-0 right-0 text-center text-[11px] md:text-xs font-semibold text-text-muted transition-colors duration-200"
            style={{ color: isHovered ? "var(--color-primary, #6C63FF)" : undefined }}>
           {p.label.split(" ").slice(1).join(" ")}
         </p>

@@ -15,6 +15,7 @@ interface Repo {
   language: string | null;
   html_url: string;
   description: string | null;
+  languages_url?: string;
 }
 
 interface LangStat {
@@ -130,9 +131,12 @@ export default function GitHubStats() {
 
     const fetchStats = async () => {
       try {
-        const headers: Record<string, string> = import.meta.env.VITE_GITHUB_TOKEN
-          ? { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
-          : {};
+        // NOTE: We intentionally do NOT send a token from the browser.
+        // VITE_* env vars are embedded in the client bundle, so any token
+        // shipped via this file would be public. If you need a higher rate
+        // limit, route the fetch through a serverless function (e.g.
+        // /api/github-stats on Vercel) and call that here instead.
+        const headers: Record<string, string> = {};
 
         const [profileRes, reposRes] = await Promise.all([
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, { headers }),
@@ -154,10 +158,32 @@ export default function GitHubStats() {
           .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
           .slice(0, 6);
 
-        // Calculate language stats from repositories
+        // Aggregate language bytes from each repo's /languages endpoint.
+        // Fall back to per-repo "language" field (1-byte weight) if the
+        // /languages call fails for a particular repo.
+        const topForLangs = [...reposData]
+          .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
+          .slice(0, 20);
+
+        const langResults = await Promise.allSettled(
+          topForLangs.map((repo) =>
+            repo.languages_url
+              ? fetch(repo.languages_url, { headers }).then((r) =>
+                  r.ok ? (r.json() as Promise<Record<string, number>>) : null
+                )
+              : Promise.resolve(null)
+          )
+        );
+
         const langMap: Record<string, number> = {};
-        reposData.forEach((repo) => {
-          if (repo.language) {
+        topForLangs.forEach((repo, i) => {
+          const result = langResults[i];
+          const bytes = result.status === "fulfilled" ? result.value : null;
+          if (bytes && typeof bytes === "object") {
+            for (const [name, size] of Object.entries(bytes)) {
+              langMap[name] = (langMap[name] || 0) + size;
+            }
+          } else if (repo.language) {
             langMap[repo.language] = (langMap[repo.language] || 0) + 1;
           }
         });
@@ -235,7 +261,7 @@ export default function GitHubStats() {
         >
           {loading ? (
             <div className="flex items-center justify-center py-12">
-              <div className="w-8 h-8 border-3 border-primary/20 border-t-primary rounded-full animate-spin" />
+              <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
             </div>
           ) : (
             <div className="flex flex-col md:flex-row items-start justify-center gap-8">

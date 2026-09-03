@@ -7,6 +7,7 @@ type Tag = {
 };
 
 interface ExperienceEntry {
+  id: string;
   role: string;
   organization: string;
   dateRange: string;
@@ -18,6 +19,7 @@ interface ExperienceEntry {
 
 const experiences: ExperienceEntry[] = [
   {
+    id: "research-assistant",
     role: "Research Assistant — Machine Learning",
     organization: "AI Research Lab",
     dateRange: "In Progress",
@@ -29,6 +31,48 @@ const experiences: ExperienceEntry[] = [
       { label: "Python", color: "bg-yellow-500/15 text-yellow-400 border border-yellow-500/20" },
     ],
     icon: "🔬",
+  },
+  {
+    id: "mrcompress",
+    role: "Founder & Solo Developer",
+    organization: "MrCompress.com",
+    dateRange: "2025",
+    description:
+      "Designed, built, and shipped a privacy-first, 100% browser-based image optimizer and format converter. Astro 6 + React 19 + Tailwind 4, deployed on Cloudflare Pages.",
+    tags: [
+      { label: "Astro", color: "bg-orange-500/15 text-orange-400 border border-orange-500/20" },
+      { label: "React", color: "bg-sky-500/15 text-sky-400 border border-sky-500/20" },
+      { label: "Tailwind CSS", color: "bg-cyan-500/15 text-cyan-400 border border-cyan-500/20" },
+    ],
+    icon: "🗜️",
+  },
+  {
+    id: "resume-analyzer",
+    role: "Creator & Maintainer",
+    organization: "resume-analyzer-ai",
+    dateRange: "2025",
+    description:
+      "Built an AI-powered resume analysis tool that parses PDFs, extracts skills with spaCy, matches against job descriptions, and generates reports. FastAPI + Next.js 16 + sentence-transformers.",
+    tags: [
+      { label: "FastAPI", color: "bg-teal-500/15 text-teal-400 border border-teal-500/20" },
+      { label: "spaCy", color: "bg-emerald-500/15 text-emerald-400 border border-emerald-500/20" },
+      { label: "Next.js", color: "bg-white/10 text-text-muted border border-border" },
+    ],
+    icon: "📄",
+  },
+  {
+    id: "codixa",
+    role: "Creator & Maintainer",
+    organization: "Codixa",
+    dateRange: "2025",
+    description:
+      "Shipped a curated suite of 100% browser-based developer utilities — formatters, encoders, generators, and converters. No server, no tracking.",
+    tags: [
+      { label: "React", color: "bg-sky-500/15 text-sky-400 border border-sky-500/20" },
+      { label: "Vite", color: "bg-violet-500/15 text-violet-400 border border-violet-500/20" },
+      { label: "Vercel", color: "bg-white/10 text-text-muted border border-border" },
+    ],
+    icon: "🛠️",
   },
 ];
 
@@ -64,7 +108,7 @@ export default function Experience() {
           <div className="space-y-0">
             {experiences.map((exp, idx) => (
               <motion.div
-                key={idx}
+                key={exp.id}
                 className="relative pl-16 md:pl-20 pb-12 last:pb-0 group"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
