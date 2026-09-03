@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liquid Glass Preview - Top Nav & Pricing Cards</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at 15% 15%, #4f46e5 0%, #7c3aed 25%, #db2777 55%, #0f172a 100%);
+      background-attachment: fixed;
+      color: #ffffff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient animated lighting orbs in background to make refraction shimmer */
+    .ambient-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -2;
+      opacity: 0.6;
+      animation: floatOrb 12s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 450px;
+      height: 450px;
+      background: #06b6d4;
+      top: 10%;
+      left: 10%;
+    }
+
+    .orb-2 {
+      width: 500px;
+      height: 500px;
+      background: #f43f5e;
+      bottom: 10%;
+      right: 15%;
+      animation-duration: 16s;
+    }
+
+    .orb-3 {
+      width: 350px;
+      height: 350px;
+      background: #fbbf24;
+      top: 50%;
+      left: 60%;
+      animation-duration: 14s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 60px) scale(1.15); }
+    }
+
+    /* Glass Container default styles */
+    .glass-container {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      box-sizing: border-box;
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+
+    .glass-container:hover {
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Navbar styling */
+    .nav-wrapper {
+      position: sticky;
+      top: 24px;
+      z-index: 50;
+      display: flex;
+      justify-content: center;
+      padding: 0 20px;
+    }
+
+    #nav-mount {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .nav-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 12px 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .nav-logo {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+      transition: color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+      opacity: 1;
+    }
+
+    .nav-cta {
+      padding: 8px 18px;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      background: rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 70px 20px 30px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Pricing Section */
+    .pricing-container {
+      max-width: 1140px;
+      margin: 40px auto 100px;
+      padding: 0 24px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .pricing-card-mount {
+      display: flex;
+    }
+
+    .pricing-card-mount .glass-container {
+      width: 100%;
+    }
+
+    .card-content {
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      z-index: 2;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .plan-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #93c5fd;
+      margin-bottom: 8px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .plan-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #ffffff;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .plan-desc {
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 24px;
+      line-height: 1.5;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+
+    .plan-price {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+      color: #ffffff;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .plan-price span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+    }
+
+    .feature-check {
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .card-button {
+      margin-top: auto;
+      padding: 14px 24px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 14px;
+      cursor: pointer;
+      text-align: center;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .card-button:hover {
+      background: rgba(255, 255, 255, 0.38);
+      border-color: rgba(255, 255, 255, 0.7);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .featured-card {
+      border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+      background: rgba(255, 255, 255, 0.14) !important;
+      transform: scale(1.03);
+    }
+
+    .featured-card .card-button {
+      background: #ffffff;
+      color: #1e1b4b;
+      border: none;
+      text-shadow: none;
+    }
+
+    .featured-card .card-button:hover {
+      background: #f1f5f9;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Live Tuning Control Floating Dock */
+    .controls-dock {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 20px 24px;
+      z-index: 1000;
+      width: 280px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .controls-dock h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .control-row {
+      margin-bottom: 12px;
+    }
+
+    .control-row label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 6px;
+    }
+
+    .control-row input[type="range"] {
+      width: 100%;
+      accent-color: #38bdf8;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Orbs for Refraction Effects -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+
+  <!-- Top Navigation Bar Glass Panel -->
+  <header class="nav-wrapper">
+    <div id="nav-mount">
+      <div class="nav-content">
+        <a href="#" class="nav-logo">
+          <span>✨</span> Liquid Glass
+        </a>
+        <ul class="nav-links">
+          <li><a href="#hero">Overview</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#showcase">Showcase</a></li>
+          <li><a href="#docs">Docs</a></li>
+        </ul>
+        <button class="nav-cta">Connect</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Headline -->
+  <section class="hero" id="hero">
+    <div class="hero-badge">🍎 WebGL Liquid Glass UI</div>
+    <h1>Apple-Grade Refraction & Frosting on the Web</h1>
+    <p>Real-time physical refraction with multi-tap blur, specular edge highlight, and responsive DOM sizing.</p>
+  </section>
+
+  <!-- Pricing Cards Section -->
+  <main class="pricing-container" id="pricing">
+    <div class="pricing-grid">
+      
+      <!-- Starter Card -->
+      <div class="pricing-card-mount" id="card-starter">
+        <div class="card-content">
+          <div class="plan-tag">Personal</div>
+          <h3 class="plan-title">Starter</h3>
+          <p class="plan-desc">For indie hackers and rapid UI prototypes.</p>
+          <div class="plan-price">$19<span>/mo</span></div>
+          <ul class="feature-list">
+            <li class="feature-item"><span class="feature-check">✓</span> Liquid Glass Navigation</li>
+            <li class="feature-item"><span class="feature-check">✓</span> 10 WebGL Containers</li>
+            <li class="feature-item"><span class="feature-check">✓</span> Community Support</li>
+          </ul>
+          <button class="card-button">Get Started</button>
+        </div>
+      </div>
+
+      <!-- Pro Card (Featured) -->
+      <div class="pricing-card-mount" id="card-pro">
+        <div class="card-content">
+          <div class="plan-tag" style="color: #f472b6;">★ Most Popular</div>
+          <h3 class="plan-title">Pro Developer</h3>
+          <p class="plan-desc">Ideal for modern production apps & portfolios.</p>
+          <div class="plan-price">$49<span>/mo</span></div>
+          <ul class="feature-list">
+            <li class="feature-item"><span class="feature-check">✓</span> Full WebGL Shaders</li>
+            <li class="feature-item"><span class="feature-check">✓</span> Real-Time Refraction & Rim</li>
+            <li class="feature-item"><span class="feature-check">✓</span> Unlimited Glass Panels</li>
+            <li class="feature-item"><span class="feature-check">✓</span> 24/7 Priority Support</li>
+          </ul>
+          <button class="card-button">Go Pro</button>
+        </div>
+      </div>
+
+      <!-- Enterprise Card -->
+      <div class="pricing-card-mount" id="card-enterprise">
+        <div class="card-content">
+          <div class="plan-tag" style="color: #a78bfa;">Scale</div>
+          <h3 class="plan-title">Enterprise</h3>
+          <p class="plan-desc">For high-traffic apps requiring tailored shaders.</p>
+          <div class="plan-price">$99<span>/mo</span></div>
+          <ul class="feature-list">
+            <li class="feature-item"><span class="feature-check">✓</span> Custom WebGL Pipeline</li>
+            <li class="feature-item"><span class="feature-check">✓</span> Multi-pass Gaussian Blur</li>
+            <li class="feature-item"><span class="feature-check">✓</span> Dedicated Engineer SLA</li>
+            <li class="feature-item"><span class="feature-check">✓</span> Custom Branding</li>
+          </ul>
+          <button class="card-button">Contact Sales</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Real-time Glass Tuning Dock -->
+  <div class="controls-dock">
+    <h4>⚙️ Tune Glass Effect</h4>
+    <div class="control-row">
+      <label>Blur Strength <span id="blurVal">2.5</span></label>
+      <input type="range" id="blurInput" min="0" max="6" step="0.1" value="2.5" />
+    </div>
+    <div class="control-row">
+      <label>Edge Refraction <span id="edgeVal">0.020</span></label>
+      <input type="range" id="edgeInput" min="0" max="0.08" step="0.002" value="0.02" />
+    </div>
+    <div class="control-row">
+      <label>Rim Highlight <span id="rimVal">0.08</span></label>
+      <input type="range" id="rimInput" min="0" max="0.3" step="0.01" value="0.08" />
+    </div>
+    <div class="control-row">
+      <label>Tint Opacity <span id="tintVal">0.25</span></label>
+      <input type="range" id="tintInput" min="0.05" max="0.7" step="0.05" value="0.25" />
+    </div>
+  </div>
+
+  <!-- html2canvas and liquid-glass.js scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="./public/liquid-glass.js"></script>
+  <script>
+    // Fallback if accessed via root path on server
+    if (typeof Container === 'undefined') {
+      const fallbackScript = document.createElement('script');
+      fallbackScript.src = '/liquid-glass.js';
+      document.head.appendChild(fallbackScript);
+    }
+  </script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // 1. Mount Top Navigation Liquid Glass Container
+      const navMount = document.getElementById('nav-mount');
+      const navContent = navMount.querySelector('.nav-content');
+
+      const navGlass = new Container({
+        borderRadius: 30,
+        type: 'pill',
+        tintOpacity: 0.25
+      });
+
+      navGlass.element.appendChild(navContent);
+      navMount.appendChild(navGlass.element);
+      navGlass.updateSizeFromDOM();
+
+      // 2. Mount Pricing Cards Liquid Glass Containers
+      const cardMounts = [
+        { id: 'card-starter', featured: false },
+        { id: 'card-pro', featured: true },
+        { id: 'card-enterprise', featured: false }
+      ];
+
+      cardMounts.forEach(({ id, featured }) => {
+        const mount = document.getElementById(id);
+        const content = mount.querySelector('.card-content');
+
+        const cardGlass = new Container({
+          borderRadius: 24,
+          type: 'rounded',
+          tintOpacity: featured ? 0.32 : 0.22
+        });
+
+        if (featured) {
+          cardGlass.element.classList.add('featured-card');
+        }
+
+        cardGlass.element.appendChild(content);
+        mount.appendChild(cardGlass.element);
+        cardGlass.updateSizeFromDOM();
+      });
+
+      // 3. Connect Live Tuning Controls
+      const blurInput = document.getElementById('blurInput');
+      const edgeInput = document.getElementById('edgeInput');
+      const rimInput = document.getElementById('rimInput');
+      const tintInput = document.getElementById('tintInput');
+
+      blurInput.addEventListener('input', (e) => {
+        Container.params.blurStrength = parseFloat(e.target.value);
+        document.getElementById('blurVal').textContent = e.target.value;
+        Container.updateAll();
+      });
+
+      edgeInput.addEventListener('input', (e) => {
+        Container.params.edgeIntensity = parseFloat(e.target.value);
+        document.getElementById('edgeVal').textContent = parseFloat(e.target.value).toFixed(3);
+        Container.updateAll();
+      });
+
+      rimInput.addEventListener('input', (e) => {
+        Container.params.rimIntensity = parseFloat(e.target.value);
+        document.getElementById('rimVal').textContent = parseFloat(e.target.value).toFixed(2);
+        Container.updateAll();
+      });
+
+      tintInput.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        document.getElementById('tintVal').textContent = val.toFixed(2);
+        Container.instances.forEach(inst => {
+          inst.tintOpacity = val;
+        });
+        Container.updateAll();
+      });
+
+      // 4. Handle Window Resize
+      window.addEventListener('resize', () => {
+        Container.updateAll();
+      });
+    });
+  </script>
+</body>
+</html>
