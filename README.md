@@ -9,11 +9,11 @@
 ## ✨ Key Features
 
 - **🌓 Dynamic Theme System:** Seamless Dark & Light mode toggle with CSS variable architecture and persistent `localStorage` preference.
-- **✨ 3D Constellation Canvas:** Interactive, lightweight particle mesh in the hero section that smoothly reacts to cursor movement.
-- **📈 Real-Time GitHub Stats:** Live integration with GitHub REST API dynamically aggregating multi-language byte breakdowns, stars, followers, and top repositories.
+- **✨ Constellation Particle Canvas:** Lightweight 2D particle mesh in the hero section that smoothly reacts to cursor movement.
+- **📈 Real-Time GitHub Stats:** Live integration with GitHub REST API dynamically aggregating multi-language byte breakdowns, stars, followers, and top repositories. Falls back to a local cache when rate-limited.
 - **🛠️ Interactive Project Showcase:** Visual cards with live demo links, source code repositories, tech stack tags, and client-side metrics.
 - **📜 Verified Credentials Viewer:** Embedded preview thumbnails and one-click external verification for professional certifications.
-- **📱 Fully Responsive & Accessible:** Fluid mobile-to-desktop layouts, keyboard accessibility (skip-to-content, focus traps), and `prefers-reduced-motion` compliance.
+- **📱 Fully Responsive & Accessible:** Fluid mobile-to-desktop layouts, keyboard accessibility (skip-to-content link, mobile-menu focus trap), and `prefers-reduced-motion` support across animations and parallax.
 
 ---
 

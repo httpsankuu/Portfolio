@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
+import type { MotionValue } from "framer-motion";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import MagneticButton from "./MagneticButton";
 import ConstellationCanvas from "./ConstellationCanvas";
@@ -73,7 +74,8 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden"
+      tabIndex={-1}
+      className="relative min-h-screen flex items-center overflow-hidden focus:outline-none"
       onMouseMove={onmousemove}
     >
       {/* Constellation particle background */}
@@ -115,8 +117,10 @@ export default function Hero() {
             </motion.span>
           </h1>
 
-          {/* Staggered word reveal for headline */}
-          <h2 className="text-xl md:text-2xl font-semibold text-text mb-4 flex flex-wrap gap-x-[0.35em] justify-center md:justify-start" aria-label="Building AI that solves real problems, not just demos.">
+          {/* Staggered word reveal for headline. The aria-label override is
+              removed so screen readers announce the visible words exactly
+              as written, with no double announcement. */}
+          <h2 className="text-xl md:text-2xl font-semibold text-text mb-4 flex flex-wrap gap-x-[0.35em] justify-center md:justify-start">
             {headlineWords.map((word, i) => (
               <motion.span
                 key={i}
@@ -250,17 +254,18 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — reduced-motion users get a static label. */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 0.6 }}
+        aria-hidden="true"
       >
         <motion.span
           className="text-xs text-text-muted font-mono tracking-wider"
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          animate={reduced ? undefined : { y: [0, 6, 0] }}
+          transition={reduced ? undefined : { duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
           SCROLL
         </motion.span>
@@ -269,8 +274,8 @@ export default function Hero() {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
+          animate={reduced ? undefined : { y: [0, 6, 0] }}
+          transition={reduced ? undefined : { duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </motion.svg>
@@ -290,8 +295,8 @@ function PolaroidCard({
 }: {
   p: (typeof polaroids)[number];
   index: number;
-  mouseX: ReturnType<typeof useMotionValue<number>>;
-  mouseY: ReturnType<typeof useMotionValue<number>>;
+  mouseX: MotionValue<number>;
+  mouseY: MotionValue<number>;
   reduced: boolean;
   loaded: boolean;
 }) {
@@ -307,8 +312,8 @@ function PolaroidCard({
       className={`absolute ${p.position} cursor-pointer select-none transform-gpu will-change-transform`}
       style={{
         zIndex: isHovered ? 40 : 10 + index,
-        x: !reduced ? (parallaxX as any) : 0,
-        y: !reduced ? (parallaxY as any) : 0,
+        x: reduced ? 0 : parallaxX,
+        y: reduced ? 0 : parallaxY,
       }}
       initial={{ opacity: 0, y: 30, rotate: 0, scale: 0.85 }}
       animate={

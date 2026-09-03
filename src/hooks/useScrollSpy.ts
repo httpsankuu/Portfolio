@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
-function throttle<T extends (...args: unknown[]) => void>(fn: T, ms: number): T {
+function throttle<T extends (...args: unknown[]) => void>(fn: T, ms: number): T & { cancel: () => void } {
   let last = 0;
   let timer: ReturnType<typeof setTimeout> | null = null;
-  return ((...args: unknown[]) => {
+  const wrapped = ((...args: unknown[]) => {
     const now = Date.now();
     const remaining = ms - (now - last);
     if (remaining <= 0) {
@@ -17,7 +17,11 @@ function throttle<T extends (...args: unknown[]) => void>(fn: T, ms: number): T 
         fn(...args);
       }, remaining);
     }
-  }) as T;
+  }) as T & { cancel: () => void };
+  wrapped.cancel = () => {
+    if (timer) { clearTimeout(timer); timer = null; }
+  };
+  return wrapped;
 }
 
 export function useScrollSpy(sectionIds: string[], offset = 120): string {
@@ -80,7 +84,10 @@ export function useScrollSpy(sectionIds: string[], offset = 120): string {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      onScroll.cancel();
+    };
   }, [sectionIds, offset]);
 
   return active;

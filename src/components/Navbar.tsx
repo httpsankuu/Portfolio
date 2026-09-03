@@ -24,6 +24,17 @@ export default function Navbar() {
   const menuRef = useRef<HTMLUListElement>(null);
 
   const closeMobile = useCallback(() => setMobileOpen(false), []);
+  const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Clear any pending scroll-timer when the component unmounts so we never
+  // call scrollIntoView on a torn-down menu.
+  useEffect(() => {
+    return () => {
+      if (scrollTimerRef.current !== null) {
+        clearTimeout(scrollTimerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -103,6 +114,7 @@ export default function Navbar() {
                 <li key={link.href}>
                   <a
                     href={link.href}
+                    aria-current={isActive ? "page" : undefined}
                     className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                       isActive
                         ? "text-primary bg-primary/10"
@@ -201,7 +213,11 @@ export default function Navbar() {
                         e.preventDefault();
                         closeMobile();
                         // Small delay so menu exit animation doesn't block scroll
-                        setTimeout(() => {
+                        if (scrollTimerRef.current !== null) {
+                          clearTimeout(scrollTimerRef.current);
+                        }
+                        scrollTimerRef.current = setTimeout(() => {
+                          scrollTimerRef.current = null;
                           const target = document.getElementById(link.id);
                           if (target) {
                             target.scrollIntoView({ behavior: "smooth", block: "start" });

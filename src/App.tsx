@@ -17,6 +17,12 @@ import ScrollProgress from "./components/ScrollProgress";
 export default function App() {
   return (
     <div className="min-h-screen bg-bg">
+      {/*
+        Skip-to-content link. We render a duplicate <a> whose `onFocus` is
+        not used; instead, the target (#hero) is given tabIndex={-1} inside
+        the Hero component so screen readers move focus to the section
+        itself, not just the next focusable element inside it.
+      */}
       <a
         href="#hero"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none"
@@ -25,7 +31,7 @@ export default function App() {
       </a>
       <ScrollProgress />
       <Navbar />
-      <main>
+      <main aria-label="Portfolio content">
         <Hero />
         <SectionReveal>
           <About />
