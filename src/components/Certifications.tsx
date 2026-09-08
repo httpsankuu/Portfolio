@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 
 type Certification = {
@@ -78,7 +77,6 @@ const item = {
 
 export default function Certifications() {
   const reduced = useReducedMotion();
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
     <section id="certifications" className="py-28 px-6 bg-bg">
@@ -110,16 +108,10 @@ export default function Certifications() {
           whileInView="show"
           viewport={{ once: true, margin: "-60px" }}
         >
-          {certifications.map((cert, idx) => (
+          {certifications.map((cert) => (
             <CertCard
               key={cert.title}
               cert={cert}
-              index={idx}
-              isHovered={hoveredIdx === idx}
-              onHoverStart={() => setHoveredIdx(idx)}
-              onHoverEnd={() =>
-                setHoveredIdx((current) => (current === idx ? null : current))
-              }
               reduced={reduced}
             />
           ))}
@@ -131,26 +123,14 @@ export default function Certifications() {
 
 function CertCard({
   cert,
-  index,
-  isHovered,
-  onHoverStart,
-  onHoverEnd,
   reduced,
 }: {
   cert: Certification;
-  index: number;
-  isHovered: boolean;
-  onHoverStart: () => void;
-  onHoverEnd: () => void;
   reduced: boolean;
 }) {
   return (
     <motion.div
       variants={item}
-      onHoverStart={onHoverStart}
-      onHoverEnd={onHoverEnd}
-      onFocus={onHoverStart}
-      onBlur={onHoverEnd}
       whileHover={
         reduced
           ? undefined
