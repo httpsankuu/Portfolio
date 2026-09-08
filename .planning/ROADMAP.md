@@ -16,15 +16,16 @@
 3. Text color is `#2d2d2d` and primary accent elements use `#ff4d4d`.
 **UI hint:** yes
 
-## Phase 2: Core Containers & Wobbly Borders
-**Goal:** Apply the hand-drawn wobbly border radius and hard offset shadows to structural containers.
+## Phase 2: Hand-Drawn Dark Mode
+**Goal:** Implement a dark mode color palette for the Hand-Drawn theme that retains the paper texture and aesthetic but flips colors for low-light viewing.
 **Mode:** mvp
-**Requirements:** STYLE-01, STYLE-02
+**Requirements:** DARK-01
 **Success Criteria:**
-1. Main containers feature irregular `border-radius` simulating hand-drawn boxes.
-2. Elevated elements display a distinct `4px 4px 0px 0px #2d2d2d` shadow.
+1. CSS variables configured to support both `.light` and `.dark` (or via media query).
+2. Background texture adapted for a dark paper look (e.g., `#1a1a1a` or dark slate).
+3. Text colors and accents adjust for sufficient contrast in dark mode.
+4. A ThemeToggle component allows switching between light and dark modes.
 **UI hint:** yes
-
 ## Phase 3: Interactive States & Organic Rotation
 **Goal:** Make interactive elements playful with flat-press clicks and organic rotations.
 **Mode:** mvp

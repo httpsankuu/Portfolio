@@ -1,65 +1,30 @@
 @import "tailwindcss";
 
-/* ─── Self-hosted fonts ─── */
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/inter-regular.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("/fonts/inter-semibold.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("/fonts/inter-bold.woff2") format("woff2");
-}
-@font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/jetbrainsmono-regular.woff2") format("woff2");
-}
-@font-face {
-  font-family: "JetBrains Mono";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("/fonts/jetbrainsmono-medium.woff2") format("woff2");
-}
-
 @theme {
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --color-primary: #6C63FF;
-  --color-primary-light: #9D97FF;
-  --color-accent: #FF6B6B;
-  --color-accent-warm: #FFB347;
-  --color-bg: #0F0B1F;
-  --color-bg-card: #16122A;
-  --color-text: #E8E8F0;
-  --color-text-muted: #7B7B9A;
-  --color-border: #252540;
+  --font-sans: "Patrick Hand", cursive, system-ui, -apple-system, sans-serif;
+  --font-heading: "Kalam", cursive;
+  --color-primary: #ff6b6b;
+  --color-primary-light: #ff8787;
+  --color-accent: #ff6b6b;
+  --color-accent-warm: #ffb347;
+  --color-bg: #1a1a1a;
+  --color-bg-highlight: #2a2a2a;
+  --color-bg-card: #242424;
+  --color-text: #e5e5e5;
+  --color-text-muted: #a3a3a3;
+  --color-border: #e5e5e5;
 }
 
-
-/* ─── Light mode overrides (toggled via html.light class) ─── */
 html.light {
-  --color-bg: #FAFAFA;
-  --color-bg-card: #FFFFFF;
-  --color-text: #2D3436;
-  --color-text-muted: #636E72;
-  --color-border: #E8E8E8;
-  --color-primary-light: #8B85FF;
+  --color-primary: #ff4d4d;
+  --color-primary-light: #ff6b6b;
+  --color-accent: #ff4d4d;
+  --color-bg: #fdfbf7;
+  --color-bg-highlight: #ffffff;
+  --color-bg-card: #fdfbf7;
+  --color-text: #2d2d2d;
+  --color-text-muted: #4a4a4a;
+  --color-border: #2d2d2d;
 }
 
 html {
@@ -70,11 +35,16 @@ body {
   margin: 0;
   font-family: var(--font-sans);
   background-color: var(--color-bg);
+  background-image: radial-gradient(circle at center, var(--color-bg-highlight) 0%, var(--color-bg) 100%);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Smooth theme transition */
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
 }
 
 ::selection {
