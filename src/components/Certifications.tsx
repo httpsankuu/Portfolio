@@ -74,32 +74,7 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const } },
 };
 
-// Lazy PDF preview: we used to render five live <iframe src="*.pdf"> tags on
-// first paint, which costs ~5 PDF downloads and 5 PDF.js/viewer processes at
-// once. Instead we now mount the iframe only after the user hovers/focuses
-// the card, and we cancel the in-flight request if they leave within 150ms.
-function useLazyIframe(active: boolean) {
-  const [shouldLoad, setShouldLoad] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    if (active) {
-      timerRef.current = setTimeout(() => setShouldLoad(true), 150);
-    } else if (timerRef.current !== null) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-      setShouldLoad(false);
-    }
-    return () => {
-      if (timerRef.current !== null) {
-        clearTimeout(timerRef.current);
-        timerRef.current = null;
-      }
-    };
-  }, [active]);
-
-  return shouldLoad;
-}
 
 export default function Certifications() {
   const reduced = useReducedMotion();
@@ -169,8 +144,6 @@ function CertCard({
   onHoverEnd: () => void;
   reduced: boolean;
 }) {
-  const shouldLoadPdf = useLazyIframe(isHovered && cert.previewType === "pdf");
-
   return (
     <motion.div
       variants={item}
@@ -206,51 +179,20 @@ function CertCard({
             loading="lazy"
             decoding="async"
           />
-        ) : shouldLoadPdf ? (
+        ) : (
           <iframe
-            // Mounted only after the user has shown intent; #view=FitH keeps
-            // the embedded preview zoomed out to a thumbnail.
             src={`${cert.previewSrc}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
             title={cert.title}
             className="w-full h-full pointer-events-none"
             style={{ border: "none" }}
             loading="lazy"
           />
-        ) : (
-          <div
-            className="w-full h-full flex flex-col items-center justify-center gap-2 text-text-muted"
-            aria-hidden="true"
-          >
-            <svg
-              className="w-10 h-10 text-primary/60"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-            <span className="text-[10px] font-mono uppercase tracking-wider">
-              PDF · hover to preview
-            </span>
-          </div>
         )}
         <div className="absolute inset-0 bg-black/0 group-hover/preview:bg-black/20 transition-colors duration-200 flex items-center justify-center">
           <span className="opacity-0 group-hover/preview:opacity-100 transition-opacity duration-200 text-[10px] font-mono text-white bg-black/60 px-2 py-1 rounded-full tracking-wider uppercase">
             View
           </span>
         </div>
-        {/*
-          `key` ensures that when the user moves between cards, React unmounts
-          each iframe promptly instead of keeping five PDF viewers alive.
-        */}
-        {shouldLoadPdf && (
-          <span key={`loaded-${index}`} className="hidden" aria-hidden="true" />
-        )}
       </a>
 
       <div className="flex-1 flex flex-col">

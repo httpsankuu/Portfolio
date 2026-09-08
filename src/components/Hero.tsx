@@ -202,41 +202,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Mobile — horizontal scrollable polaroid strip below text */}
-        <div className="flex md:hidden gap-5 overflow-x-auto pb-4 w-full px-2 scrollbar-hide">
-          {polaroids.map((p) => (
-            <div
-              key={p.id}
-              className="relative shrink-0 transform-gpu"
-              style={{ transform: `rotate(${p.rotation}deg)` }}
-            >
-              <div className="bg-bg-card p-2 pb-7 rounded-sm shadow-md shadow-black/30 border border-border/50 w-28">
-                <div
-                  className={`w-24 h-24 rounded-sm bg-gradient-to-br ${p.color} overflow-hidden flex items-center justify-center text-2xl`}
-                >
-                  {p.photo ? (
-                    <img
-                      src={p.photo}
-                      alt={p.label}
-                      className="w-full h-full object-cover object-top"
-                      loading="eager"
-                      decoding="async"
-                    />
-                  ) : (
-                    <span role="img" aria-label={p.label}>
-                      {p.label.split(" ")[0]}
-                    </span>
-                  )}
-                </div>
-                <p className="text-center text-[10px] font-medium text-text-muted mt-1 leading-tight">
-                  {p.label.split(" ").slice(1).join(" ")}
-                </p>
-                {/* Tape */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-3 bg-white/60 backdrop-blur-sm rounded-sm border border-white/40 shadow-sm rotate-1" />
-              </div>
-            </div>
-          ))}
-        </div>
+
 
         {/* Desktop — floating polaroid collage on the right */}
         <div className="hidden md:block relative flex-1 w-full h-[560px] shrink-0">

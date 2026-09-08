@@ -20,7 +20,7 @@ export default function About() {
             <img
               src="/profile.webp"
               alt="Ankit Kumar Singh"
-              className="w-full h-full object-cover object-top"
+              className="w-full h-full object-cover object-top scale-[1.05]"
               loading="lazy"
             />
           </div>
