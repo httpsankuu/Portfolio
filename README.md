@@ -1,8 +1,14 @@
-# Ankit Kumar Singh — Portfolio 🚀
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Ankit%20Kumar%20Singh&fontSize=60&animation=fadeIn&fontAlignY=38&desc=Machine%20Learning%20Engineer%20%26%20Web%20Developer&descAlignY=55&descAlign=60" alt="Header" />
+</div>
 
-**Personal developer portfolio and interactive showcase** of machine learning systems, modern web engineering projects, credentials, and open-source work. Built with performance, accessibility, and modern aesthetics in mind.
+<h1 align="center">Portfolio 🚀</h1>
 
-🔗 **[Live Website!](https://portfolio-engineerhihu.vercel.app/)** • 📄 **[Download CV](public/Ankit_Kumar_Singh_CV.pdf)**
+<div align="center">
+  <strong>Personal developer portfolio and interactive showcase</strong> of machine learning systems, modern web engineering projects, credentials, and open-source work. Built with performance, accessibility, and modern aesthetics in mind.
+  <br/><br/>
+  🔗 <b><a href="https://ankitcoded.vercel.app/">Live Website!</a></b>
+</div>
 
 ---
 
@@ -60,11 +66,13 @@ npm run build
 
 ## 📬 Let's Connect
 
-- **Email:** [ankitkumar143563@gmail.com](mailto:ankitkumar143563@gmail.com)
-- **LinkedIn:** [linkedin.com/in/ankit-kumar-singh03](https://www.linkedin.com/in/ankit-kumar-singh03/)
-- **GitHub:** [@httpsankuu](https://github.com/httpsankuu)
-- **LeetCode:** [leetcode.com/u/who_ankuu](https://leetcode.com/u/who_ankuu/)
-- **X / Twitter:** [@who_ankith](https://x.com/who_ankith)
+<div align="center">
+  <a href="mailto:ankitkumar143563@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
+  <a href="https://www.linkedin.com/in/ankit-kumar-singh03/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="https://github.com/httpsankuu"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
+  <a href="https://leetcode.com/u/who_ankuu/"><img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black" alt="LeetCode" /></a>
+  <a href="https://x.com/who_ankith"><img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X/Twitter" /></a>
+</div>
 
 ---
 
