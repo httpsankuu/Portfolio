@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Ankit%20Kumar%20Singh&fontSize=60&animation=fadeIn&fontAlignY=38&desc=Machine%20Learning%20Engineer%20%26%20Web%20Developer&descAlignY=55&descAlign=60" alt="Header" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Ankit%20Kumar%20Singh&fontSize=60&animation=fadeIn&fontAlignY=38&desc=Machine%20Learning%20Engineer%20and%20Web%20Developer&descAlignY=55&descAlign=60" alt="Header" />
 </div>
 
 <h1 align="center">Portfolio 🚀</h1>
