@@ -24,4 +24,11 @@
 - [New Content Sections] — The focus is purely on restyling existing content.
 
 ## Traceability
-*(To be populated by roadmap)*
+- **STYLE-01**: Phase 2
+- **STYLE-02**: Phase 2
+- **STYLE-03**: Phase 1
+- **INT-01**: Phase 3
+- **INT-02**: Phase 3
+- **INT-03**: Phase 3
+- **TYPO-01**: Phase 1
+- **TYPO-02**: Phase 1
